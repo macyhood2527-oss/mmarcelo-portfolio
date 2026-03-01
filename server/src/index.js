@@ -13,11 +13,14 @@ app.use(cors());
 app.use(express.json());
 app.use(requestIdMiddleware);
 
+// health check for Render
+app.get("/healthz", (req, res) => res.status(200).send("ok"));
+
 app.use("/api", statusRoutes);
 app.use("/api", auditRoutes);
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`[api] listening on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`[api] listening on port ${PORT}`);
 });
