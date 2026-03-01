@@ -3,6 +3,9 @@ import Container from '../components/layout/Container.jsx';
 import Button from '../components/ui/Button.jsx';
 
 export default function Sandbox() {
+  // ✅ Use Render base URL in production (Vercel env), but keep proxy working locally
+  const API = import.meta.env.VITE_API_BASE || '';
+
   // STATUS API STATE
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
@@ -85,6 +88,11 @@ export default function Sandbox() {
     };
   }
 
+  // ✅ Always build API URLs through this helper
+  function apiUrl(path) {
+    return `${API}${path}`;
+  }
+
   async function fetchStatus() {
     setLoading(true);
     setError(null);
@@ -96,8 +104,8 @@ export default function Sandbox() {
     const start = performance.now();
 
     try {
-      const url = `/api/status${simulateFailure ? '?fail=1' : ''}`;
-      const res = await fetch(url);
+      const path = `/api/status${simulateFailure ? '?fail=1' : ''}`;
+      const res = await fetch(apiUrl(path));
 
       setStatusCode(res.status);
 
@@ -133,7 +141,7 @@ export default function Sandbox() {
     const start = performance.now();
 
     try {
-      const res = await fetch('/api/audit/recent');
+      const res = await fetch(apiUrl('/api/audit/recent'));
       setAuditStatusCode(res.status);
 
       const meta = readServerMeta(res);
