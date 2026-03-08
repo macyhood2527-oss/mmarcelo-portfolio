@@ -144,7 +144,7 @@ export const projects = [
   ],
   links: {
     github: 'https://github.com/macyhood2527-oss/DentalBooking',
-    demo: 'https://YOUR-VERCEL-URL.vercel.app', // replace with your live link
+    demo: 'https://dental-booking-orcin.vercel.app/', // replace with your live link
   },
   details: {
     architecture:
