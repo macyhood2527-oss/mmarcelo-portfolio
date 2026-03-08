@@ -124,4 +124,78 @@ export const projects = [
       },
     ],
   },
+
+  {
+  id: 'brightsmile-dental',
+  title: 'BrightSmile Dental Clinic Booking System',
+  emphasis: 'Primary',
+  summary:
+    'Full-stack clinic booking platform where patients can book dental appointments online and admins can manage services, schedules, homepage content, and appointment workflows.',
+  tags: [
+    'Next.js',
+    'React',
+    'Tailwind CSS',
+    'Supabase',
+    'PostgreSQL',
+    'Supabase Auth',
+    'RLS',
+    'Supabase Storage',
+    'Role-Based Access',
+  ],
+  links: {
+    github: 'https://github.com/macyhood2527-oss/DentalBooking',
+    demo: 'https://YOUR-VERCEL-URL.vercel.app', // replace with your live link
+  },
+  details: {
+    architecture:
+      'Next.js App Router frontend connected to Supabase for authentication, PostgreSQL data storage, Row Level Security, and image storage. Middleware protects patient/admin routes, while the booking flow validates unavailable dates and occupied slots before creating appointments.',
+    responsibilities: [
+      'Built patient flows for signup, login, booking appointments, and viewing appointment history',
+      'Implemented role-based route protection for patient and admin pages',
+      'Created admin tools for services, appointment status updates, unavailable clinic dates, and homepage content editing',
+      'Integrated Supabase Storage for service images and homepage gallery management',
+      'Designed a polished clinic website experience with hero CTA, gallery, About page, and responsive navigation',
+    ],
+    problemsSolved: [
+      'Prevented invalid bookings by checking past dates, Sundays, unavailable dates, and occupied slots',
+      'Separated patient vs admin permissions using middleware and role-aware access rules',
+      'Made clinic content easier to maintain by adding editable homepage/about content from the admin side',
+      'Improved usability with AM/PM time formatting, search, gallery lightbox behavior, and clearer admin flows',
+    ],
+    mediaNote:
+      'Includes patient booking flow, admin scheduling tools, editable homepage content, and deployed production-ready UI.',
+  },
+  media: [
+    {
+      type: 'image',
+      src: '/media/brightsmile/homepage.png',
+      caption: 'Homepage with strong CTA, services preview, gallery, and clinic branding.',
+    },
+    {
+      type: 'image',
+      src: '/media/brightsmile/booking-page.png',
+      caption: 'Patient booking flow with service selection, unavailable date blocking, and time slot validation.',
+    },
+    {
+      type: 'image',
+      src: '/media/brightsmile/appointments.png',
+      caption: 'Patient appointment history showing service details, schedule, status, and notes.',
+    },
+    {
+      type: 'image',
+      src: '/media/brightsmile/admin-dashboard.png',
+      caption: 'Admin dashboard overview with appointment summaries and clinic activity.',
+    },
+    {
+      type: 'image',
+      src: '/media/brightsmile/admin-services.png',
+      caption: 'Admin service management with image upload and service visibility controls.',
+    },
+    {
+      type: 'image',
+      src: '/media/brightsmile/admin-calendar.png',
+      caption: 'Admin calendar view for tracking appointments and clinic unavailable dates.',
+    },
+  ],
+}
 ];
