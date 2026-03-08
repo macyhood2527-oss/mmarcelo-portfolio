@@ -32,6 +32,5 @@ export const tech = [
   { key: 'Web Push', label: 'Web Push' },
   { key: 'PWA', label: 'PWA' },
 
-  // General tools
-  { key: 'Git', label: 'Git' },
+ 
 ];
