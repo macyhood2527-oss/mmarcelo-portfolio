@@ -4,22 +4,23 @@ export const clientWork = {
   sectionTitle: "Client Experience",
   kicker: "Client-proven work",
   intro:
-    "Previously worked with a digital agency (later transitioned to direct client engagement) for ~1 year, producing structured campaign assets and content executions.",
+    "Growth consultant specializing in outreach, lead generation, and content writing for coaches, creators, and online service providers. I help brands increase visibility, nurture leads, and book qualified calls using simple, repeatable systems.",
 
   engagements: [
     {
       id: "agency-to-direct",
-      title: "Content & Campaign Execution",
-      role: "Social Media Manager",
+      title: "Growth Consulting — Outreach, Lead Gen, Content",
+      role: "Growth Consultant",
       timeframe: "~1 year",
-      engagementType: "Agency → Direct client",
+      engagementType: "Agency + Direct client",
       summary:
-        "Produced educational carousel campaigns and short-form video edits with an emphasis on clear narrative flow, visual consistency, and audience-first messaging.",
-      tools: ["Canva", "Content planning", "Video editing workflow"],
+        "Delivered outreach strategy and execution, lead nurturing flows, and content systems designed to drive visibility and qualified conversations without spammy tactics.",
+      tools: ["Outreach strategy", "Lead generation", "Content writing", "Canva", "DM follow-up systems"],
       highlights: [
-        "Planned and produced multi-slide educational carousels",
-        "Edited short-form campaign video content",
-        "Collaborated with stakeholders to align content with brand objectives",
+        "Built warm DM outreach workflows with follow-up prompts that move leads toward booked calls",
+        "Created weekly content systems (reels, carousels, static posts) with hook-and-CTA copywriting",
+        "Performed profile audits and engagement-based visibility tactics to attract qualified prospects",
+        "Supported time-constrained service providers with consistent, low-friction growth execution",
       ],
       media: {
         carousels: [

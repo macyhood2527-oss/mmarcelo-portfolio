@@ -1,15 +1,15 @@
 // src/data/liveSystems.js
 
-import apexCode from '../assets/live/apex/apex-code.png';
-import apexReward from '../assets/live/apex/apex-daily-reward.png';
-import apexShop from '../assets/live/apex/apex-shop.png';
-import apexAdmin from '../assets/live/apex/apex-admin-tools.png';
-import apexBoards from '../assets/live/apex/apex-leaderboards.png';
+import apexCode from '../assets/live/apex/apex-code.jpg';
+import apexReward from '../assets/live/apex/apex-daily-reward.jpg';
+import apexShop from '../assets/live/apex/apex-shop.jpg';
+import apexAdmin from '../assets/live/apex/apex-admin-tools.jpg';
+import apexBoards from '../assets/live/apex/apex-leaderboards.jpg';
 
-import mountReel from '../assets/live/mount/mount-reel.png';
-import mountRods from '../assets/live/mount/mount-rods.png';
-import mountInventory from '../assets/live/mount/mount-inventory.png';
-import mountWeather from '../assets/live/mount/mount-weather.png';
+import mountReel from '../assets/live/mount/mount-reel.jpg';
+import mountRods from '../assets/live/mount/mount-rods.jpg';
+import mountInventory from '../assets/live/mount/mount-inventory.jpg';
+import mountWeather from '../assets/live/mount/mount-weather.jpg';
 
 export const liveSystems = [
   // =========================

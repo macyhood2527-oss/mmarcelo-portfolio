@@ -1,4 +1,3 @@
-// src/sections/ClientExperience.jsx
 import { useState } from 'react';
 import Container from '../components/layout/Container.jsx';
 import Button from '../components/ui/Button.jsx';
@@ -25,7 +24,6 @@ function Panel({ children, style }) {
 function SquareEmbed({ title, src }) {
   return (
     <Panel>
-      {/* 1:1 */}
       <div style={{ position: 'relative', width: '100%', height: 0, paddingBottom: '100%' }}>
         <iframe
           src={src}
@@ -77,6 +75,32 @@ function YouTubeEmbed({ title, url, ratio = '16:9', maxWidth }) {
   );
 }
 
+function CaseStudyBlock({ title, children }) {
+  return (
+    <div
+      style={{
+        border: '1px solid var(--border)',
+        borderRadius: 14,
+        background: 'rgba(255,255,255,0.5)',
+        padding: 14,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 11,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          color: 'var(--faint)',
+          marginBottom: 8,
+        }}
+      >
+        {title}
+      </div>
+      {children}
+    </div>
+  );
+}
+
 function SectionLabel({ children }) {
   return (
     <div
@@ -84,7 +108,7 @@ function SectionLabel({ children }) {
         marginTop: 18,
         marginBottom: 10,
         fontSize: 12,
-        letterSpacing: '0.10em',
+        letterSpacing: '0.1em',
         textTransform: 'uppercase',
         color: 'var(--muted)',
       }}
@@ -96,6 +120,8 @@ function SectionLabel({ children }) {
 
 export default function ClientExperience() {
   const [open, setOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('carousels');
+
   const e = clientWork.engagements?.[0];
   if (!e) return null;
 
@@ -106,7 +132,6 @@ export default function ClientExperience() {
   return (
     <section id="client" className="section">
       <Container>
-        {/* Always-visible box */}
         <div className="card" style={{ padding: 20 }}>
           <div className="kicker">{clientWork.kicker}</div>
 
@@ -124,18 +149,16 @@ export default function ClientExperience() {
             </h2>
 
             <Button variant="secondary" onClick={() => setOpen((v) => !v)}>
-              {open ? 'Hide' : 'View'} client work
+              {open ? 'Hide' : 'View'} case study
             </Button>
           </div>
 
-          <p className="p" style={{ marginTop: 10, maxWidth: 820 }}>
+          <p className="p" style={{ marginTop: 10, maxWidth: 860 }}>
             {clientWork.intro}
           </p>
 
-          {/* Collapsible details */}
           {open && (
-            <div className="fadeUp" style={{ marginTop: 14 }}>
-              {/* Meta */}
+            <div className="fadeUp" style={{ marginTop: 16 }}>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
                 <div style={{ fontSize: 16, fontWeight: 700 }}>{e.title}</div>
                 <div style={{ color: 'var(--muted)', fontSize: 13 }}>
@@ -143,122 +166,140 @@ export default function ClientExperience() {
                 </div>
               </div>
 
-              <p className="p" style={{ marginTop: 10, maxWidth: 820 }}>
-                {e.summary}
-              </p>
+              <div className="clientCaseGrid" style={{ marginTop: 14, display: 'grid', gap: 12 }}>
+                <CaseStudyBlock title="Problem">
+                  <p className="p" style={{ fontSize: 14 }}>
+                    Clients needed a practical growth system: consistent visibility, lead generation without cold-spam tactics, and qualified conversations despite limited time for daily engagement.
+                  </p>
+                </CaseStudyBlock>
 
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>
-                {(e.tools || []).map((t) => (
-                  <Chip key={t}>{t}</Chip>
-                ))}
+                <CaseStudyBlock title="Solution">
+                  <p className="p" style={{ marginTop: 0, fontSize: 14 }}>
+                    {e.summary}
+                  </p>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>
+                    {(e.tools || []).map((t) => (
+                      <Chip key={t}>{t}</Chip>
+                    ))}
+                  </div>
+                </CaseStudyBlock>
+
+                <CaseStudyBlock title="Impact">
+                  <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.65, paddingLeft: 18 }}>
+                    {(e.highlights || []).map((x) => (
+                      <li key={x}>{x}</li>
+                    ))}
+                  </ul>
+                </CaseStudyBlock>
               </div>
 
-              {/* Scope */}
-              <SectionLabel>Scope</SectionLabel>
-              <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.7 }}>
-                {(e.highlights || []).slice(0, 3).map((x) => (
-                  <li key={x}>{x}</li>
-                ))}
-              </ul>
+              <SectionLabel>Media</SectionLabel>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <Button variant={activeTab === 'carousels' ? 'primary' : 'secondary'} onClick={() => setActiveTab('carousels')}>
+                  Carousels
+                </Button>
+                <Button variant={activeTab === 'video' ? 'primary' : 'secondary'} onClick={() => setActiveTab('video')}>
+                  Video
+                </Button>
+                <Button variant={activeTab === 'testimonial' ? 'primary' : 'secondary'} onClick={() => setActiveTab('testimonial')}>
+                  Testimonial
+                </Button>
+              </div>
 
-              {/* Carousel samples */}
-              <SectionLabel>Carousel samples</SectionLabel>
-
-              {carousels.length === 0 ? (
-                <div style={{ color: 'var(--faint)', fontSize: 13 }}>No carousel samples added yet.</div>
-              ) : (
-                <div className="clientGrid">
-                  {carousels.map((c) => (
-                    <div key={c.id}>
-                      <SquareEmbed title={c.title} src={c.embedUrl} />
-                      {c.viewUrl && (
-                        <a
-                          href={c.viewUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          style={{
-                            display: 'inline-block',
-                            marginTop: 6,
-                            fontSize: 12,
-                            color: 'var(--muted)',
-                          }}
-                        >
-                          Open
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Video sample (centered) */}
-              {video && (
+              {activeTab === 'carousels' && (
                 <>
-                  <SectionLabel>Video sample</SectionLabel>
-                  <YouTubeEmbed
-                    title={video.title || 'Video sample'}
-                    url={video.url}
-                    ratio={video.ratio || '16:9'}
-                    maxWidth={720}
-                  />
-                  {video.note && (
-                    <div style={{ marginTop: 10, fontSize: 13, color: 'var(--faint)', textAlign: 'center' }}>
-                      {video.note}
+                  {carousels.length === 0 ? (
+                    <div style={{ color: 'var(--faint)', fontSize: 13, marginTop: 10 }}>No carousel samples added yet.</div>
+                  ) : (
+                    <div className="clientCarouselRow" style={{ marginTop: 12 }}>
+                      {carousels.map((c) => (
+                        <div key={c.id} className="clientCarouselItem">
+                          <SquareEmbed title={c.title} src={c.embedUrl} />
+                          {c.viewUrl && (
+                            <a
+                              href={c.viewUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{ display: 'inline-block', marginTop: 6, fontSize: 12, color: 'var(--muted)' }}
+                            >
+                              Open in Canva
+                            </a>
+                          )}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </>
               )}
 
-              {/* Testimonial (embedded + centered under everything) */}
-              {testimonial?.url ? (
-                <>
-                  <SectionLabel>Testimonial</SectionLabel>
+              {activeTab === 'video' && (
+                <div style={{ marginTop: 12 }}>
+                  {video?.url ? (
+                    <YouTubeEmbed title={video.title || 'Video sample'} url={video.url} ratio={video.ratio || '16:9'} maxWidth={760} />
+                  ) : (
+                    <div style={{ color: 'var(--faint)', fontSize: 13 }}>No video sample added yet.</div>
+                  )}
+                </div>
+              )}
 
-                  <div style={{ maxWidth: 420, margin: '0 auto' }}>
-                    <div
-                      style={{
-                        padding: 12,
-                        borderRadius: 16,
-                        border: '1px dashed var(--border)',
-                        background: 'rgba(255,255,255,0.25)',
-                        backdropFilter: 'blur(8px)',
-                      }}
-                    >
-                      <YouTubeEmbed
-                        title={testimonial.title || 'Client testimonial'}
-                        url={testimonial.url}
-                        ratio={testimonial.ratio || '9:16'}
-                        maxWidth={360}
-                      />
-                    </div>
-                  </div>
+              {activeTab === 'testimonial' && (
+                <div style={{ marginTop: 12 }}>
+                  {testimonial?.url ? (
+                    <>
+                      <div style={{ maxWidth: 420, margin: '0 auto' }}>
+                        <div
+                          style={{
+                            padding: 12,
+                            borderRadius: 16,
+                            border: '1px dashed var(--border)',
+                            background: 'rgba(255,255,255,0.25)',
+                            backdropFilter: 'blur(8px)',
+                          }}
+                        >
+                          <YouTubeEmbed
+                            title={testimonial.title || 'Client testimonial'}
+                            url={testimonial.url}
+                            ratio={testimonial.ratio || '9:16'}
+                            maxWidth={360}
+                          />
+                        </div>
+                      </div>
 
-                  <div style={{ marginTop: 10, fontSize: 13, color: 'var(--muted)', textAlign: 'center' }}>
-                    {testimonial.note || 'Client feedback.'}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <SectionLabel>Testimonial</SectionLabel>
-                  <div style={{ color: 'var(--faint)', fontSize: 13 }}>
-                    Add a testimonial URL in <code>clientWork.js</code>.
-                  </div>
-                </>
+                      <div style={{ marginTop: 10, fontSize: 13, color: 'var(--muted)', textAlign: 'center' }}>
+                        {testimonial.note || 'Client feedback.'}
+                      </div>
+                    </>
+                  ) : (
+                    <div style={{ color: 'var(--faint)', fontSize: 13 }}>No testimonial added yet.</div>
+                  )}
+                </div>
               )}
             </div>
           )}
         </div>
 
-        {/* Local responsive CSS for this section */}
         <style>{`
-          #client .clientGrid {
-            display: grid;
-            gap: 10px;
+          #client .clientCaseGrid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
           }
 
-          @media (max-width: 860px) {
-            #client .clientGrid {
+          #client .clientCarouselRow {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-snap-type: x proximity;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 6px;
+          }
+
+          #client .clientCarouselItem {
+            flex: 0 0 auto;
+            width: clamp(220px, 38vw, 320px);
+            scroll-snap-align: start;
+          }
+
+          @media (max-width: 980px) {
+            #client .clientCaseGrid {
               grid-template-columns: 1fr;
             }
           }

@@ -19,9 +19,10 @@ export default function Hero() {
           {/* LEFT SIDE */}
           <div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-              <Chip>Backend-first</Chip>
-              <Chip>Node.js • Express • MySQL</Chip>
-              <Chip>JWT • RBAC • REST APIs</Chip>
+              <Chip>API Engineering</Chip>
+              <Chip>Node.js • Express • TypeScript</Chip>
+              <Chip>Supabase • MySQL • PostgreSQL</Chip>
+              <Chip>JWT • OAuth • RLS • RBAC</Chip>
             </div>
 
             <h1 className="h1" style={{ marginTop: 16 }}>
@@ -36,7 +37,7 @@ export default function Hero() {
       fontSize: 17,
     }}
   >
-    Backend Developer (Node.js)
+    Backend Developer building secure, production-ready APIs
   </div>
 
   <div
@@ -72,6 +73,13 @@ export default function Hero() {
               </a>
               <a href="#contact">
                 <Button variant="secondary">Contact</Button>
+              </a>
+              <a
+                href="/resume.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button variant="secondary">Download Resume</Button>
               </a>
             </div>
           </div>

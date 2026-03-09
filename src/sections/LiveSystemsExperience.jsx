@@ -47,13 +47,15 @@ function MediaGallery({ items = [] }) {
 
   return (
     <>
-      {/* Compact 3-col grid */}
       <div
         style={{
           marginTop: 12,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+          display: 'flex',
+          overflowX: 'auto',
+          scrollSnapType: 'x proximity',
+          WebkitOverflowScrolling: 'touch',
           gap: 10,
+          paddingBottom: 6,
         }}
       >
         {images.map((m, i) => (
@@ -62,6 +64,9 @@ function MediaGallery({ items = [] }) {
             type="button"
             onClick={() => openAt(i)}
             style={{
+              flex: '0 0 auto',
+              width: 'clamp(220px, 40vw, 320px)',
+              scrollSnapAlign: 'start',
               padding: 0,
               cursor: 'pointer',
               borderRadius: 12,
@@ -263,6 +268,32 @@ function MediaGallery({ items = [] }) {
   );
 }
 
+function CaseStudyBlock({ title, children }) {
+  return (
+    <div
+      style={{
+        border: '1px solid var(--border)',
+        borderRadius: 14,
+        background: 'rgba(255,255,255,0.5)',
+        padding: 14,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 11,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          color: 'var(--faint)',
+          marginBottom: 8,
+        }}
+      >
+        {title}
+      </div>
+      {children}
+    </div>
+  );
+}
+
 export default function LiveSystemsExperience() {
   const [openId, setOpenId] = useState(liveSystems?.[0]?.id ?? null);
 
@@ -314,7 +345,7 @@ export default function LiveSystemsExperience() {
                 </div>
 
                 <Button variant="secondary" onClick={() => setOpenId(isOpen ? null : s.id)}>
-                  {isOpen ? 'Hide details' : 'View details'}
+                  {isOpen ? 'Hide details' : 'View case study'}
                 </Button>
               </div>
 
@@ -324,60 +355,79 @@ export default function LiveSystemsExperience() {
     <div className="detailsContent">
       <div className="hr" />
 
-      <div className="detailsGrid">
-        {/* LEFT COLUMN */}
-        <div>
-          <div className="sectionLabel">Architecture overview</div>
-          <p className="p" style={{ marginTop: 0 }}>
+      <div className="liveCaseGrid" style={{ marginTop: 14, display: 'grid', gap: 12 }}>
+        <CaseStudyBlock title="Problem">
+          <p className="p" style={{ fontSize: 14 }}>
+            {s.summary}
+          </p>
+        </CaseStudyBlock>
+
+        <CaseStudyBlock title="Solution">
+          <p className="p" style={{ marginTop: 0, fontSize: 14 }}>
             {s.details?.architecture}
           </p>
+          {!!s.details?.responsibilities?.length && (
+            <ul style={{ color: 'var(--muted)', marginTop: 10, lineHeight: 1.65, paddingLeft: 18 }}>
+              {s.details.responsibilities.slice(0, 4).map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ul>
+          )}
+        </CaseStudyBlock>
 
-          <div className="sectionLabel">What I built</div>
-          <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.7 }}>
-            {(s.details?.responsibilities || []).map((x) => (
-              <li key={x}>{x}</li>
-            ))}
-          </ul>
-        </div>
+        <CaseStudyBlock title="Impact">
+          {!!s.details?.problemsSolved?.length ? (
+            <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.65, paddingLeft: 18 }}>
+              {s.details.problemsSolved.map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="p" style={{ fontSize: 14 }}>
+              Outcomes documented across live operations and stability updates.
+            </p>
+          )}
+        </CaseStudyBlock>
+      </div>
 
-        {/* RIGHT COLUMN */}
-        <div>
-          <div className="sectionLabel">Problems solved</div>
-          <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.7 }}>
-            {(s.details?.problemsSolved || []).map((x) => (
-              <li key={x}>{x}</li>
-            ))}
-          </ul>
+      <div className="sectionLabel">Build artifacts</div>
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 0 }}>
+        {s.links?.game ? (
+          <a href={s.links.game} target="_blank" rel="noreferrer">
+            <Button variant="primary">Game</Button>
+          </a>
+        ) : (
+          <Button variant="secondary" disabled>
+            Game link (add)
+          </Button>
+        )}
 
-          <div className="sectionLabel">Links</div>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 0 }}>
-            {s.links?.game ? (
-              <a href={s.links.game} target="_blank" rel="noreferrer">
-                <Button variant="primary">Game</Button>
-              </a>
-            ) : (
-              <Button variant="secondary" disabled>
-                Game link (add)
-              </Button>
-            )}
+        {s.links?.docs ? (
+          <a href={s.links.docs} target="_blank" rel="noreferrer">
+            <Button variant="secondary">Notes</Button>
+          </a>
+        ) : (
+          <Button variant="secondary" disabled>
+            Notes (optional)
+          </Button>
+        )}
+      </div>
 
-            {s.links?.docs ? (
-              <a href={s.links.docs} target="_blank" rel="noreferrer">
-                <Button variant="secondary">Notes</Button>
-              </a>
-            ) : (
-              <Button variant="secondary" disabled>
-                Notes (optional)
-              </Button>
-            )}
-          </div>
+      <div className="sectionLabel">System preview</div>
+      <MediaGallery items={s.media} />
+      <style>{`
+        #systems .liveCaseGrid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
 
-          <div className="sectionLabel">System preview</div>
-          <MediaGallery items={s.media} />
-        </div>
+        @media (max-width: 980px) {
+          #systems .liveCaseGrid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
       </div>
     </div>
-  </div>
 )}
             </div>
           );
