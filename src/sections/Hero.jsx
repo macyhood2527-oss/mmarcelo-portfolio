@@ -7,7 +7,7 @@ export default function Hero() {
     <section className="section">
       <Container>
         <div
-          className="card heroGrid"
+          className="card heroGrid heroCard"
           style={{
             padding: 32,
             display: 'grid',
@@ -101,6 +101,20 @@ export default function Hero() {
           </div>
         </div>
       </Container>
+      <style>{`
+        @media (max-width: 860px) {
+          .heroCard {
+            padding: 22px !important;
+            gap: 18px !important;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .heroCard {
+            padding: 18px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

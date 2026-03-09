@@ -401,16 +401,6 @@ export default function LiveSystemsExperience() {
             Game link (add)
           </Button>
         )}
-
-        {s.links?.docs ? (
-          <a href={s.links.docs} target="_blank" rel="noreferrer">
-            <Button variant="secondary">Notes</Button>
-          </a>
-        ) : (
-          <Button variant="secondary" disabled>
-            Notes (optional)
-          </Button>
-        )}
       </div>
 
       <div className="sectionLabel">System preview</div>

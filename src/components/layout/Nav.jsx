@@ -38,7 +38,7 @@ export default function Nav() {
   };
 
   const buttonStyle = {
-    border: '1px solid var(--line)',
+    border: '1px solid var(--border)',
     background: 'rgba(255,255,255,0.65)',
     color: 'var(--text)',
     borderRadius: 12,
@@ -72,7 +72,7 @@ export default function Nav() {
               gap: 6,
               padding: 10,
               borderRadius: 16,
-              border: '1px solid var(--line)',
+              border: '1px solid var(--border)',
               background: 'rgba(255,255,255,0.9)',
               boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
               backdropFilter: 'blur(12px)',

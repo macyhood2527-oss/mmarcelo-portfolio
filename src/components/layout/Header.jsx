@@ -1,7 +1,19 @@
+import { useEffect, useState } from 'react';
 import Container from './Container.jsx';
 import Nav from './Nav.jsx';
 
 export default function Header({ activeTech, onClearTech }) {
+  const [compact, setCompact] = useState(false);
+
+  useEffect(() => {
+    function onResize() {
+      setCompact(window.innerWidth < 980);
+    }
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   return (
     <header
       style={{
@@ -34,11 +46,21 @@ export default function Header({ activeTech, onClearTech }) {
                 flex: '0 0 auto',
               }}
             />
-            <span style={{ fontWeight: 650, letterSpacing: 0.2, whiteSpace: 'nowrap', color: 'var(--text)' }}>
-              crafted in logic 🌷
+            <span
+              style={{
+                fontWeight: 650,
+                letterSpacing: 0.2,
+                whiteSpace: 'nowrap',
+                color: 'var(--text)',
+                maxWidth: compact ? 130 : 220,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {compact ? 'crafted in logic' : 'crafted in logic 🌷'}
             </span>
 
-            {activeTech && (
+            {!compact && activeTech && (
               <button
                 onClick={onClearTech}
                 style={{

@@ -3,7 +3,7 @@ export default function Container({ children }) {
     <div
       style={{
         maxWidth: 'var(--container)',
-        padding: '0 20px',
+        padding: '0 clamp(14px, 4vw, 20px)',
         margin: '0 auto',
       }}
     >
