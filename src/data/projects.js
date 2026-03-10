@@ -241,17 +241,17 @@ export const projects = [
   media: [
     {
       type: 'image',
-      src: '/media/billguard/dashboard.png',
+      src: '/media/billguard/dashboard.PNG',
       caption: 'Dashboard overview showing upcoming, overdue, paid, and monthly bill totals.',
     },
     {
       type: 'image',
-      src: '/media/billguard/billslist.png',
+      src: '/media/billguard/billslist.PNG',
       caption: 'Bills list with search, quick filters, and payment status across recurring obligations.',
     },
     {
       type: 'image',
-      src: '/media/billguard/payments.png',
+      src: '/media/billguard/payments.PNG',
       caption: 'Payment history with month filters, payer filters, and exportable monthly reporting.',
     },
     {
@@ -261,12 +261,12 @@ export const projects = [
     },
     {
       type: 'image',
-      src: '/media/billguard/addbill.png',
+      src: '/media/billguard/addbill.PNG',
       caption: 'Add bill flow for recurring or one-time obligations with category and reminder settings.',
     },
     {
       type: 'image',
-      src: '/media/billguard/household.png',
+      src: '/media/billguard/household.PNG',
       caption: 'Profile and household management with theme selection, member visibility, and invite controls.',
     },
   ],
