@@ -1,8 +1,25 @@
+import { useState } from 'react';
 import Container from '../components/layout/Container.jsx';
 import Button from '../components/ui/Button.jsx';
 import Chip from '../components/ui/Chip.jsx';
 
 export default function Hero() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const introParagraphs = [
+    `Hi, I'm Melissa.`,
+    `I first started building small systems back in college around 2012. At the time, I created simple POS, cashiering, billing, and inventory tools for small local businesses, long before the current wave of AI tools made development more accessible.`,
+    `Life eventually took me down a different path. I spent several years working across different roles, from the medical field to customer service, sales, and later as a virtual assistant handling growth consulting and social media management. Each experience helped me understand how businesses operate and the kinds of tools people actually need.`,
+    `Years later, something unexpected brought me back to development. My kids invited me to play Roblox, and out of curiosity I discovered Roblox Studio. That moment reignited my passion for building systems. I started experimenting again, created a couple of games, and to my surprise they gained traction.`,
+    `That experience reminded me how much I enjoy creating things that people can use and interact with.`,
+    `Since then, I've been intentionally returning to software development, building projects of my own while strengthening my skills in backend systems, APIs, authentication flows, and practical application architecture. My goal is simple: to build useful, reliable tools that solve real problems.`,
+    `And that's the journey that brings me here today.`,
+  ];
+
+  const visibleParagraphs = isExpanded
+    ? introParagraphs
+    : introParagraphs.slice(0, 3);
+
   return (
     <section className="section">
       <Container>
@@ -12,8 +29,8 @@ export default function Hero() {
             padding: 32,
             display: 'grid',
             gridTemplateColumns: '1.2fr 0.8fr',
-            gap: 32,
-            alignItems: 'center',
+            gap: 28,
+            alignItems: 'start',
           }}
         >
           {/* LEFT SIDE */}
@@ -53,19 +70,37 @@ export default function Hero() {
   </div>
 </div>
 
-            <p
-  className="p"
-  style={{
-    maxWidth: 680,
-    fontSize: 16,
-    lineHeight: 1.7,
-  }}
->
-  I build backend systems focused on clarity, security, and maintainability.
-  My work includes authentication flows, REST APIs, and structured database design.
-  I’m currently strengthening my frontend skills with React while continuing
-  to deepen my backend foundations.
-</p>
+            <div
+              style={{
+                maxWidth: 720,
+                display: 'grid',
+                gap: 14,
+              }}
+            >
+              {visibleParagraphs.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="p"
+                  style={{
+                    fontSize: 16,
+                    lineHeight: 1.75,
+                  }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+
+              <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                <Button
+                  variant="secondary"
+                  onClick={() => setIsExpanded((value) => !value)}
+                  aria-expanded={isExpanded}
+                  aria-label={isExpanded ? 'Show less about Melissa' : 'Read more about Melissa'}
+                >
+                  {isExpanded ? 'Show Less' : 'Read More'}
+                </Button>
+              </div>
+            </div>
 
             <div style={{ display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap' }}>
               <a href="#work">
