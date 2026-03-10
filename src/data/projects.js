@@ -201,10 +201,10 @@ export const projects = [
 ,
 {
   id: 'billguard-mobile',
-  title: 'BillGuard - Mobile Personal Finance App (MVP)',
+  title: 'BillGuard - Shared Household Bill Manager',
   emphasis: 'Primary',
   summary:
-    'Mobile-first bill management app for tracking recurring dues, payment status, and monthly obligations with a calm, low-friction fintech experience.',
+    'Mobile-first household billing app for shared recurring payments, payment accountability, and printable monthly reporting with a low-friction fintech experience.',
   tags: [
     'React Native',
     'Expo Router',
@@ -213,6 +213,7 @@ export const projects = [
     'PostgreSQL',
     'Supabase Auth',
     'Row Level Security',
+    'Household Collaboration',
   ],
   links: {
     github: 'https://github.com/macyhood2527-oss/billguard',
@@ -220,43 +221,53 @@ export const projects = [
   },
   details: {
     architecture:
-      'React Native + Expo Router app backed by Supabase (Postgres + Auth + RLS). The codebase is organized by screens, reusable UI components, hooks, services, and constants, with a service-layer data pattern to keep business logic out of presentation components.',
+      'React Native + Expo Router app backed by Supabase (Postgres + Auth + RLS). The app evolved from a single-user tracker into a shared-household billing system, with the codebase organized around screens, reusable UI components, hooks, services, and constants to keep business logic out of presentation components.',
     responsibilities: [
-      'Implemented secure email/password authentication using Supabase Auth',
-      'Built core CRUD flow for bills, including category assignment and monthly payment tracking',
-      'Implemented mark-as-paid with same-month undo support for safer corrections',
-      'Designed dashboard summaries for upcoming, overdue, paid, and total monthly obligations',
-      'Created reusable Dark Rose Glass UI components for a consistent mobile visual system',
+      'Implemented secure email/password authentication with signup confirmation, profile settings, and password change flows using Supabase Auth',
+      'Built shared household collaboration flows including invites, acceptance, member management, ownership transfer, household switching, and leave/create flows',
+      'Delivered reliable bill and payment workflows with bills CRUD, mark-as-paid / undo-paid actions, payment history, and filtering by month and payer',
+      'Designed printable monthly report export with payment snapshots so historical records stay accurate even if bill metadata changes later',
+      'Improved product UX with 4-theme support, reorganized profile sections, and smoother tab and shared-screen transitions',
     ],
     problemsSolved: [
-      'Enforced monthly payment uniqueness with a composite constraint (user_id + bill_id + month_reference)',
-      'Protected user data boundaries using Row Level Security policies per authenticated account',
-      'Improved mobile usability with compact filters and low-friction list interactions',
-      'Prioritized a stable MVP foundation over premature feature expansion',
+      'Expanded data access from single-user boundaries to household-aware sharing while still protecting account data with Row Level Security',
+      'Preserved report integrity by storing payment snapshots so exported historical records do not drift when bill names or categories are updated later',
+      'Made payment tracking safer with explicit payer visibility, same-flow paid state correction, and month-based filtering for reconciliation',
+      'Balanced mobile polish with practical delivery by shipping through Expo development flow and publishing production EAS updates',
     ],
     mediaNote:
-      'Deployment status: Android EAS build pipeline configured and validated; iOS production release pending Apple Developer membership. Fully testable on iPhone through Expo Go during development.',
+      'Current deployment status: best working mode is Expo/dev usage with a production EAS update already published. Standalone iPhone distribution still depends on a full iOS build and Apple account setup path.',
   },
   media: [
     {
       type: 'image',
       src: '/media/billguard/dashboard.png',
-      caption: 'Dashboard overview with upcoming, overdue, paid, and monthly totals.',
+      caption: 'Dashboard overview showing upcoming, overdue, paid, and monthly bill totals.',
     },
     {
       type: 'image',
       src: '/media/billguard/billslist.png',
-      caption: 'Bills list view with category grouping and status tracking.',
-    },
-    {
-      type: 'image',
-      src: '/media/billguard/addbill.png',
-      caption: 'Add Bill flow for creating recurring obligations with due dates.',
+      caption: 'Bills list with search, quick filters, and payment status across recurring obligations.',
     },
     {
       type: 'image',
       src: '/media/billguard/payments.png',
-      caption: 'Payment history screen by bill and month reference.',
+      caption: 'Payment history with month filters, payer filters, and exportable monthly reporting.',
+    },
+    {
+      type: 'image',
+      src: '/media/billguard/pdf-report.png',
+      caption: 'Printable monthly payment report with member totals and snapshot-safe historical records.',
+    },
+    {
+      type: 'image',
+      src: '/media/billguard/addbill.png',
+      caption: 'Add bill flow for recurring or one-time obligations with category and reminder settings.',
+    },
+    {
+      type: 'image',
+      src: '/media/billguard/household.png',
+      caption: 'Profile and household management with theme selection, member visibility, and invite controls.',
     },
   ],
 }
