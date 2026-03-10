@@ -241,7 +241,7 @@ export const projects = [
   media: [
     {
       type: 'image',
-      src: '/media/billguard/dashboard.PNG',
+      src: '/media/billguard/dashboard.png',
       caption: 'Dashboard overview showing upcoming, overdue, paid, and monthly bill totals.',
     },
     {
