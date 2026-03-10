@@ -246,12 +246,12 @@ export const projects = [
     },
     {
       type: 'image',
-      src: '/media/billguard/billslist.PNG',
+      src: '/media/billguard/billslist.png',
       caption: 'Bills list with search, quick filters, and payment status across recurring obligations.',
     },
     {
       type: 'image',
-      src: '/media/billguard/payments.PNG',
+      src: '/media/billguard/payments.png',
       caption: 'Payment history with month filters, payer filters, and exportable monthly reporting.',
     },
     {
@@ -261,12 +261,12 @@ export const projects = [
     },
     {
       type: 'image',
-      src: '/media/billguard/addbill.PNG',
+      src: '/media/billguard/addbill.png',
       caption: 'Add bill flow for recurring or one-time obligations with category and reminder settings.',
     },
     {
       type: 'image',
-      src: '/media/billguard/household.PNG',
+      src: '/media/billguard/household.png',
       caption: 'Profile and household management with theme selection, member visibility, and invite controls.',
     },
   ],
