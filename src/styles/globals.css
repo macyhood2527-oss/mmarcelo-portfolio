@@ -159,19 +159,6 @@ img {
   box-shadow: 0 24px 48px rgba(91, 74, 52, 0.14);
 }
 
-.routeTransition {
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 260ms ease,
-    transform 260ms ease;
-}
-
-.routeTransition.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .motionImage {
   transition: transform 320ms ease, filter 320ms ease;
   will-change: transform;
@@ -329,7 +316,6 @@ img {
 
   .card,
   .motionImage,
-  .routeTransition,
   .drift,
   .fadeUp {
     animation: none !important;

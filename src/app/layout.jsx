@@ -3,7 +3,6 @@ import '../styles/globals.css';
 
 import Header from '../components/layout/Header.jsx';
 import Footer from '../components/layout/Footer.jsx';
-import RouteTransition from '../components/layout/RouteTransition.jsx';
 
 export const metadata = {
   title: 'Melissa Marcelo | Developer Portfolio',
@@ -15,9 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Header />
-        <main>
-          <RouteTransition>{children}</RouteTransition>
-        </main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
