@@ -7,13 +7,11 @@ export default function Hero() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const introParagraphs = [
-    `Hi, I'm Melissa.`,
-    `I first started building small systems back in college around 2012. At the time, I created simple POS, cashiering, billing, and inventory tools for small local businesses, long before the current wave of AI tools made development more accessible.`,
-    `Life eventually took me down a different path. I spent several years working across different roles, from the medical field to customer service, sales, and later as a virtual assistant handling growth consulting and social media management. Each experience helped me understand how businesses operate and the kinds of tools people actually need.`,
-    `Years later, something unexpected brought me back to development. My kids invited me to play Roblox, and out of curiosity I discovered Roblox Studio. That moment reignited my passion for building systems. I started experimenting again, created a couple of games, and to my surprise they gained traction.`,
-    `That experience reminded me how much I enjoy creating things that people can use and interact with.`,
-    `Since then, I've been intentionally returning to software development, building projects of my own while strengthening my skills in backend systems, APIs, authentication flows, and practical application architecture. My goal is simple: to build useful, reliable tools that solve real problems.`,
-    `And that's the journey that brings me here today.`,
+       `I first started building small systems back in college around 2012, creating simple POS, billing, and inventory tools for local businesses, long before the current AI-assisted development era.`,
+    `Life eventually took me down different paths. I spent several years working across healthcare, customer service, sales, and later as a virtual assistant supporting business growth and social media operations. Those experiences gave me a deeper understanding of how real businesses operate and the kinds of tools they actually need.`,
+    `Years later, my kids introduced me to Roblox, and discovering Roblox Studio unexpectedly brought me back to development. I started building again, created a couple of games that gained traction, and it reminded me how much I enjoy creating systems people can actually use.`,
+    `Today, I focus on building practical applications and backend systems, including APIs, authentication, and database-driven tools, while continuously strengthening my skills in modern web development.`,
+    `I'm currently open to freelance projects, collaborations, and opportunities to build meaningful systems that solve real-world problems.`,
   ];
 
   const visibleParagraphs = isExpanded
@@ -36,10 +34,10 @@ export default function Hero() {
           {/* LEFT SIDE */}
           <div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-              <Chip>API Engineering</Chip>
-              <Chip>Node.js • Express • TypeScript</Chip>
-              <Chip>Supabase • MySQL • PostgreSQL</Chip>
-              <Chip>JWT • OAuth • RLS • RBAC</Chip>
+              <Chip>Backend Developer</Chip>
+              <Chip>API Design</Chip>
+              <Chip>Authentication Systems</Chip>
+              <Chip>Database-Backed Apps</Chip>
             </div>
 
             <h1 className="h1" style={{ marginTop: 16 }}>

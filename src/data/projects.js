@@ -126,6 +126,78 @@ export const projects = [
   },
 
   {
+    id: 'spendora',
+    title: 'Spendora',
+    emphasis: 'Product',
+    summary:
+      'Offline-first expense tracking web app focused on spending awareness with a calm, aesthetic interface and local-first data architecture.',
+    tags: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'Framer Motion',
+      'Recharts',
+      'Lucide React',
+      'Dexie',
+      'IndexedDB',
+      'PWA',
+    ],
+    links: {
+      github: 'https://github.com/macyhood2527-oss/Spendora',
+      demo: 'https://spendora-ebon.vercel.app/',
+    },
+    details: {
+      architecture:
+        'Next.js and React frontend using a local-first data model powered by Dexie and IndexedDB, allowing the app to work offline while keeping expense data stored directly in the browser.',
+      responsibilities: [
+        'Designed an expense tracking flow centered on spending awareness rather than overly complex budgeting setup',
+        'Built dashboards and spending insight views to make category and trend patterns easier to understand',
+        'Implemented printable monthly reports for lightweight record-keeping and review',
+        'Added merchant autocomplete and installable PWA support for faster repeat entry and app-like usage',
+      ],
+      problemsSolved: [
+        'Kept the app usable without a network connection through offline-first browser storage',
+        'Reduced friction for personal finance tracking with a calm interface and local-first architecture',
+        'Made recurring review easier with dashboards, insights, and printable month-level reporting',
+        'Improved entry speed and retention with merchant autocomplete and installable PWA behavior',
+      ],
+    },
+    media: [
+      {
+        type: 'image',
+        src: '/media/spendora/dashboard.png',
+        caption: 'Dashboard overview with monthly budget status, total spend, transaction count, and a calm category breakdown.',
+      },
+      {
+        type: 'image',
+        src: '/media/spendora/add-expense.png',
+        caption: 'Add expense flow designed for quick entry, with lightweight fields for amount, merchant, category, date, and notes.',
+      },
+      {
+        type: 'image',
+        src: '/media/spendora/expenses-list.png',
+        caption: 'Expenses timeline with search, sorting, and clean item cards for reviewing, editing, or deleting recorded spending.',
+      },
+      {
+        type: 'image',
+        src: '/media/spendora/insights.png',
+        caption: 'Insights view surfacing monthly patterns, category concentration, average transaction size, and trend notes from local data.',
+      },
+      {
+        type: 'image',
+        src: '/media/spendora/monthly-report.png',
+        caption: 'Printable monthly report summarizing total spent, transaction count, top category, largest expense, and category breakdown.',
+      },
+      {
+        type: 'image',
+        src: '/media/spendora/settings-backup.png',
+        caption: 'Settings page with category budget controls plus backup, merge, and restore tools for local-first data safety.',
+      },
+    ],
+  },
+
+  {
   id: 'brightsmile-dental',
   title: 'BrightSmile Dental Clinic Booking System',
   emphasis: 'Primary',
@@ -266,7 +338,7 @@ export const projects = [
     },
     {
       type: 'image',
-      src: '/media/billguard/household.PNG',
+      src: '/media/billguard/household.png',
       caption: 'Profile and household management with theme selection, member visibility, and invite controls.',
     },
   ],
