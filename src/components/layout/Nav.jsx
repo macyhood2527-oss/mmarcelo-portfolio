@@ -1,61 +1,76 @@
-import { useEffect, useState } from 'react';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { BriefcaseBusiness, FlaskConical, FolderKanban, House } from 'lucide-react';
 
 const links = [
-  { href: '#work', label: 'Projects' },
-  { href: '#stack', label: 'Stack' },
-  { href: '#systems', label: 'Systems' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/', label: 'Home', Icon: House },
+  { href: '/projects', label: 'Projects', Icon: FolderKanban },
+  { href: '/experience', label: 'Experience', Icon: BriefcaseBusiness },
+  { href: '/sandbox', label: 'Sandbox', Icon: FlaskConical },
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    function handleResize() {
-      const mobile = window.innerWidth < 820;
-      setIsMobile(mobile);
-
-      if (!mobile) {
-        setMobileOpen(false);
-      }
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const linkStyle = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '10px 14px',
+    borderRadius: 999,
+    border: '1px solid transparent',
     color: 'var(--muted)',
     fontSize: 14,
-    padding: '8px 10px',
-    borderRadius: 10,
-    textDecoration: 'none',
     transition: '0.2s ease',
-    display: 'inline-block',
   };
 
-  const buttonStyle = {
-    border: '1px solid var(--border)',
-    background: 'rgba(255,255,255,0.65)',
-    color: 'var(--text)',
-    borderRadius: 12,
-    padding: '8px 12px',
-    fontSize: 14,
-    cursor: 'pointer',
-    backdropFilter: 'blur(10px)',
-    WebkitBackdropFilter: 'blur(10px)',
-  };
+  const renderLinks = (stacked = false) =>
+    links.map(({ href, label, Icon }) => {
+      const active = pathname === href;
 
-  if (isMobile) {
-    return (
-      <div style={{ position: 'relative' }}>
+      return (
+        <Link
+          key={href}
+          href={href}
+          onClick={() => setMobileOpen(false)}
+          style={{
+            ...linkStyle,
+            width: stacked ? '100%' : 'auto',
+            justifyContent: stacked ? 'flex-start' : 'center',
+            color: active ? 'var(--text)' : 'var(--muted)',
+            background: active ? 'rgba(207, 224, 195, 0.28)' : 'transparent',
+            borderColor: active ? 'rgba(111, 138, 110, 0.22)' : 'transparent',
+            boxShadow: active ? '0 10px 18px rgba(111, 138, 110, 0.1)' : 'none',
+          }}
+        >
+          <Icon size={18} strokeWidth={1.9} />
+          <span>{label}</span>
+        </Link>
+      );
+    });
+
+  return (
+    <>
+      <div className="desktopNav">{renderLinks(false)}</div>
+
+      <div className="mobileNav">
         <button
           type="button"
-          onClick={() => setMobileOpen((prev) => !prev)}
-          style={buttonStyle}
+          onClick={() => setMobileOpen((value) => !value)}
+          style={{
+            border: '1px solid var(--border)',
+            background: 'rgba(255, 250, 244, 0.92)',
+            color: 'var(--text)',
+            borderRadius: 999,
+            padding: '10px 14px',
+            fontSize: 14,
+            cursor: 'pointer',
+            boxShadow: 'var(--shadow-soft)',
+          }}
         >
           {mobileOpen ? 'Close' : 'Menu'}
         </button>
@@ -66,47 +81,43 @@ export default function Nav() {
               position: 'absolute',
               top: 'calc(100% + 10px)',
               right: 0,
-              minWidth: 180,
-              display: 'flex',
-              flexDirection: 'column',
+              minWidth: 210,
+              display: 'grid',
               gap: 6,
               padding: 10,
-              borderRadius: 16,
+              borderRadius: 22,
               border: '1px solid var(--border)',
-              background: 'rgba(255,255,255,0.9)',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              zIndex: 50,
+              background: 'rgba(255, 250, 244, 0.98)',
+              boxShadow: 'var(--shadow)',
             }}
           >
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  ...linkStyle,
-                  width: '100%',
-                  padding: '10px 12px',
-                }}
-              >
-                {l.label}
-              </a>
-            ))}
+            {renderLinks(true)}
           </div>
         )}
       </div>
-    );
-  }
 
-  return (
-    <nav style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-      {links.map((l) => (
-        <a key={l.href} href={l.href} style={linkStyle}>
-          {l.label}
-        </a>
-      ))}
-    </nav>
+      <style>{`
+        .desktopNav {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .mobileNav {
+          display: none;
+          position: relative;
+        }
+
+        @media (max-width: 860px) {
+          .desktopNav {
+            display: none;
+          }
+
+          .mobileNav {
+            display: block;
+          }
+        }
+      `}</style>
+    </>
   );
 }

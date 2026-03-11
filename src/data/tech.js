@@ -9,6 +9,8 @@ export const tech = [
   { key: 'MySQL', label: 'MySQL' },
   { key: 'PostgreSQL', label: 'PostgreSQL' },
   { key: 'SQL Reports', label: 'SQL Reports' },
+  { key: 'Dexie', label: 'Dexie' },
+  { key: 'IndexedDB', label: 'IndexedDB' },
 
   // Auth & architecture
   { key: 'JWT Auth', label: 'JWT Auth' },
@@ -28,6 +30,9 @@ export const tech = [
   { key: 'Vite', label: 'Vite' },
   { key: 'Tailwind CSS', label: 'Tailwind CSS' },
   { key: 'Tailwind', label: 'Tailwind CSS' },
+  { key: 'Framer Motion', label: 'Framer Motion' },
+  { key: 'Recharts', label: 'Recharts' },
+  { key: 'Lucide React', label: 'Lucide React' },
 
   // Backend services
   { key: 'Supabase', label: 'Supabase' },

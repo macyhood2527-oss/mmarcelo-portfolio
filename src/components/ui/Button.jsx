@@ -1,3 +1,5 @@
+'use client';
+
 import { cx } from '../../utils/cx.js';
 
 export default function Button({
@@ -10,12 +12,14 @@ export default function Button({
   ...props
 }) {
   const base = {
-    borderRadius: 12,
-    padding: '10px 14px',
+    borderRadius: 999,
+    padding: '12px 18px',
     fontSize: 14,
+    fontWeight: 600,
+    letterSpacing: '0.01em',
     border: '1px solid var(--border)',
     cursor: 'pointer',
-    transition: 'transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease',
+    transition: 'transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, color 180ms ease',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -26,16 +30,16 @@ export default function Button({
   const styles =
     variant === 'primary'
       ? {
-          background: 'var(--accent)',
-          borderColor: 'rgba(47, 111, 87, 0.28)',
-          color: '#ffffff',
-          boxShadow: '0 10px 22px rgba(0,0,0,0.10)',
+          background: 'linear-gradient(180deg, var(--accent) 0%, var(--accent-strong) 100%)',
+          borderColor: 'rgba(111, 138, 110, 0.34)',
+          color: '#fffdf9',
+          boxShadow: '0 14px 26px rgba(111, 138, 110, 0.24)',
         }
       : {
-          background: 'rgba(255,255,255,0.55)',
+          background: 'rgba(255, 250, 244, 0.82)',
           color: 'var(--text)',
-          borderColor: 'rgba(21, 33, 27, 0.14)',
-          backdropFilter: 'blur(10px)',
+          borderColor: 'rgba(139, 107, 78, 0.24)',
+          boxShadow: '0 8px 16px rgba(91, 74, 52, 0.06)',
         };
 
   return (
@@ -44,20 +48,33 @@ export default function Button({
       className={cx(className)}
       style={{ ...base, ...styles }}
       onMouseDown={(e) => {
-        e.currentTarget.style.transform = 'translateY(1px)';
+        e.currentTarget.style.transform = 'translateY(1px) scale(0.99)';
         onMouseDown?.(e);
       }}
       onMouseUp={(e) => {
-        e.currentTarget.style.transform = 'translateY(0px)';
+        e.currentTarget.style.transform = 'translateY(0px) scale(1)';
         onMouseUp?.(e);
       }}
       onMouseEnter={(e) => {
-        if (variant === 'primary') e.currentTarget.style.background = 'rgba(47, 111, 87, 0.92)';
-        if (variant !== 'primary') e.currentTarget.style.borderColor = 'rgba(47, 111, 87, 0.24)';
+        if (variant === 'primary') {
+          e.currentTarget.style.transform = 'translateY(-2px)';
+          e.currentTarget.style.boxShadow = '0 18px 28px rgba(111, 138, 110, 0.28)';
+        }
+        if (variant !== 'primary') {
+          e.currentTarget.style.transform = 'translateY(-2px)';
+          e.currentTarget.style.borderColor = 'rgba(111, 138, 110, 0.36)';
+          e.currentTarget.style.background = 'rgba(255, 252, 247, 0.98)';
+        }
       }}
       onMouseLeave={(e) => {
-        if (variant === 'primary') e.currentTarget.style.background = 'var(--accent)';
-        if (variant !== 'primary') e.currentTarget.style.borderColor = 'rgba(21, 33, 27, 0.14)';
+        e.currentTarget.style.transform = 'translateY(0px) scale(1)';
+        if (variant === 'primary') {
+          e.currentTarget.style.boxShadow = '0 14px 26px rgba(111, 138, 110, 0.24)';
+        }
+        if (variant !== 'primary') {
+          e.currentTarget.style.borderColor = 'rgba(139, 107, 78, 0.24)';
+          e.currentTarget.style.background = 'rgba(255, 250, 244, 0.82)';
+        }
       }}
       {...props}
     >

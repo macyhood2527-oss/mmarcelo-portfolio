@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import Container from '../components/layout/Container.jsx';
 import Button from '../components/ui/Button.jsx';
@@ -8,11 +10,10 @@ function Panel({ children, style }) {
   return (
     <div
       style={{
-        border: '1px solid var(--border)',
-        borderRadius: 12,
+        border: '1px solid rgba(139, 107, 78, 0.18)',
+        borderRadius: 18,
         overflow: 'hidden',
-        background: 'rgba(255,255,255,0.55)',
-        backdropFilter: 'blur(10px)',
+        background: 'rgba(255, 251, 247, 0.82)',
         ...style,
       }}
     >
@@ -79,10 +80,10 @@ function CaseStudyBlock({ title, children }) {
   return (
     <div
       style={{
-        border: '1px solid var(--border)',
-        borderRadius: 14,
-        background: 'rgba(255,255,255,0.5)',
-        padding: 14,
+        border: '1px solid rgba(139, 107, 78, 0.18)',
+        borderRadius: 20,
+        background: 'rgba(255, 251, 247, 0.8)',
+        padding: 18,
       }}
     >
       <div
@@ -149,7 +150,7 @@ export default function ClientExperience() {
             </h2>
 
             <Button variant="secondary" onClick={() => setOpen((v) => !v)}>
-              {open ? 'Hide' : 'View'} case study
+              {open ? 'Hide details' : 'View details'}
             </Button>
           </div>
 

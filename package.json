@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
-    "dev:web": "vite",
+    "dev:web": "next dev",
     "dev:api": "npm run dev --prefix server",
-    "build": "vite build",
+    "build": "next build",
+    "start": "next start",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "next start"
   },
   "dependencies": {
+    "lucide-react": "^0.577.0",
+    "next": "^16.1.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

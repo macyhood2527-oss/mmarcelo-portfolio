@@ -1,4 +1,7 @@
+'use client';
+
 import { useState } from 'react';
+import Link from 'next/link';
 import Container from '../components/layout/Container.jsx';
 import Button from '../components/ui/Button.jsx';
 import Chip from '../components/ui/Chip.jsx';
@@ -22,16 +25,15 @@ export default function Hero() {
     <section className="section">
       <Container>
         <div
-          className="card heroGrid heroCard"
+          className="card heroGrid heroCard editorialShell"
           style={{
-            padding: 32,
+            padding: 'clamp(24px, 4vw, 40px)',
             display: 'grid',
-            gridTemplateColumns: '1.2fr 0.8fr',
-            gap: 28,
+            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(280px, 0.75fr)',
+            gap: 34,
             alignItems: 'start',
           }}
         >
-          {/* LEFT SIDE */}
           <div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
               <Chip>Backend Developer</Chip>
@@ -40,39 +42,44 @@ export default function Hero() {
               <Chip>Database-Backed Apps</Chip>
             </div>
 
-            <h1 className="h1" style={{ marginTop: 16 }}>
+            <div className="kicker" style={{ marginTop: 22 }}>
+              Thoughtful developer portfolio
+            </div>
+
+            <h1 className="h1" style={{ marginTop: 14, maxWidth: 720 }}>
               Melissa Marcelo
             </h1>
 
-            <div style={{ marginBottom: 18 }}>
-  <div
-    style={{
-      fontWeight: 600,
-      color: 'var(--text)',
-      fontSize: 17,
-    }}
-  >
-    Backend Developer building secure, production-ready APIs
-  </div>
+            <div style={{ marginBottom: 22, maxWidth: 680 }}>
+              <div
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.25rem, 2vw, 1.7rem)',
+                  lineHeight: 1.25,
+                  color: 'var(--text)',
+                }}
+              >
+                Hi, I&apos;m Melissa.
+              </div>
 
-  <div
-    style={{
-      color: 'var(--muted)',
-      fontSize: 14,
-      marginTop: 4,
-      letterSpacing: '0.04em',
-      textTransform: 'uppercase',
-    }}
-  >
-    Rest APIs • Authentication • Practical System Design
-  </div>
-</div>
+              <div
+                style={{
+                  color: 'var(--faint)',
+                  fontSize: 13,
+                  marginTop: 10,
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Building calm, capable systems for real-world work
+              </div>
+            </div>
 
             <div
               style={{
                 maxWidth: 720,
                 display: 'grid',
-                gap: 14,
+                gap: 16,
               }}
             >
               {visibleParagraphs.map((paragraph) => (
@@ -81,7 +88,7 @@ export default function Hero() {
                   className="p"
                   style={{
                     fontSize: 16,
-                    lineHeight: 1.75,
+                    lineHeight: 1.82,
                   }}
                 >
                   {paragraph}
@@ -101,35 +108,72 @@ export default function Hero() {
             </div>
 
             <div style={{ display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap' }}>
-              <a href="#work">
+              <Link href="/projects">
                 <Button variant="primary">View Projects</Button>
-              </a>
+              </Link>
               <a href="#contact">
-                <Button variant="secondary">Contact</Button>
+                <Button variant="secondary">Let&apos;s Collaborate</Button>
               </a>
               <a
                 href="/resume.html"
                 target="_blank"
                 rel="noreferrer"
               >
-                <Button variant="secondary">Download Resume</Button>
+                <Button variant="secondary">Open Resume / Save PDF</Button>
               </a>
             </div>
           </div>
 
-          {/* RIGHT SIDE — PHOTO */}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className="heroPhotoWrapper">
+          <div style={{ display: 'grid', gap: 18 }}>
+            <div className="heroPhotoWrapper drift">
               <img
                 src="/me.png"
                 alt="Melissa Marcelo"
+                className="motionImage"
                 style={{
                   width: '100%',
-                  maxWidth: 280,
-                  borderRadius: 18,
+                  maxWidth: 320,
+                  margin: '0 auto',
+                  borderRadius: 22,
                   display: 'block',
                 }}
               />
+            </div>
+
+            <div
+              className="card"
+              style={{
+                padding: 22,
+                borderRadius: 26,
+                background: 'linear-gradient(180deg, rgba(255, 250, 244, 0.94), rgba(239, 231, 220, 0.86))',
+              }}
+            >
+              <div className="kicker">Studio notes</div>
+              <div
+                style={{
+                  marginTop: 14,
+                  display: 'grid',
+                  gap: 14,
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: 13, color: 'var(--faint)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    Focus
+                  </div>
+                  <div style={{ marginTop: 6, fontSize: 15, color: 'var(--muted)', lineHeight: 1.7 }}>
+                    Backend systems, practical product thinking, and warm developer collaboration.
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: 13, color: 'var(--faint)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    Best fit
+                  </div>
+                  <div style={{ marginTop: 6, fontSize: 15, color: 'var(--muted)', lineHeight: 1.7 }}>
+                    Freelance builds, collaborative product work, and grounded systems that need reliability without losing personality.
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

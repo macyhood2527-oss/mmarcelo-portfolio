@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useState } from 'react';
 import Container from '../components/layout/Container.jsx';
 import Button from '../components/ui/Button.jsx';
@@ -12,8 +14,8 @@ function MetaChip({ label, value }) {
         gap: 6,
         padding: '5px 10px',
         borderRadius: 999,
-        border: '1px solid var(--border)',
-        background: 'rgba(255,255,255,0.35)',
+        border: '1px solid rgba(139, 107, 78, 0.2)',
+        background: 'rgba(255, 250, 244, 0.72)',
         color: 'var(--muted)',
         fontSize: 12,
       }}
@@ -25,7 +27,7 @@ function MetaChip({ label, value }) {
 }
 
 export default function Sandbox() {
-  const API = import.meta.env.VITE_API_BASE || '';
+  const API = process.env.NEXT_PUBLIC_API_BASE || '';
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
@@ -63,10 +65,10 @@ export default function Sandbox() {
       gap: 8,
       padding: '6px 10px',
       borderRadius: 999,
-      border: '1px solid var(--border)',
+      border: '1px solid rgba(139, 107, 78, 0.2)',
       fontSize: 13,
       color: 'var(--muted)',
-      background: 'rgba(255,255,255,0.02)',
+      background: 'rgba(255, 250, 244, 0.82)',
     };
 
     if (tone === 'ok') {
@@ -224,11 +226,11 @@ export default function Sandbox() {
       <Container>
         <div className="kicker">Sandbox</div>
         <h2 className="h2" style={{ marginTop: 6 }}>
-          API Interaction Demo
+          A small notebook for API experiments
         </h2>
 
         <p className="p" style={{ marginTop: 10, maxWidth: 780 }}>
-          Product-style API demos for status checks, error handling, and audit trail retrieval.
+          A playful lab corner for request states, failure handling, and audit trail retrieval without losing the calm tone of the portfolio.
         </p>
 
         <div className="sandboxGrid" style={{ marginTop: 16 }}>

@@ -6,110 +6,147 @@
     <title>Melissa Marcelo - Resume</title>
     <style>
       :root {
-        --bg: #f7faf7;
-        --text: #1b2620;
-        --muted: rgba(27, 38, 32, 0.76);
-        --faint: rgba(27, 38, 32, 0.58);
-        --border: rgba(186, 142, 96, 0.42);
-        --panel: rgba(255, 255, 255, 0.9);
-        --accent: #2f6f57;
+        --paper: #fffdfa;
+        --ink: #332a28;
+        --muted: #5c4f49;
+        --soft: #7a6c63;
+        --line: #d8c8b6;
+        --sage: #6f8a6e;
+        --blush: #efe7dc;
       }
 
-      * { box-sizing: border-box; }
+      @page {
+        size: auto;
+        margin: 0.45in;
+      }
 
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
       body {
         margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        line-height: 1.5;
+        padding: 0;
+        background: #f5efe8;
+        color: var(--ink);
+        font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
+      }
+
+      body {
+        line-height: 1.42;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      ul {
+        margin: 0;
       }
 
       .page {
-        width: min(920px, 100%);
-        margin: 0 auto;
-        padding: 28px;
+        width: min(7.35in, calc(100vw - 28px));
+        margin: 18px auto;
+        padding: 0.32in;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 40px rgba(84, 64, 49, 0.1);
       }
 
-      .card {
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        background: var(--panel);
-        padding: 18px;
+      .header {
+        display: grid;
+        gap: 10px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--line);
       }
-
-      h1, h2, h3, p { margin: 0; }
 
       .name {
-        font-size: 34px;
-        line-height: 1.05;
-        font-weight: 740;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 31px;
+        line-height: 1;
+        letter-spacing: -0.02em;
       }
 
       .role {
-        margin-top: 6px;
-        font-size: 16px;
-        color: var(--muted);
-        font-weight: 620;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--sage);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       .contact {
-        margin-top: 10px;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 12px;
-        font-size: 13px;
+        gap: 4px 12px;
+        font-size: 11.5px;
         color: var(--muted);
       }
 
       .summary {
-        margin-top: 14px;
-        font-size: 14px;
+        font-size: 12.4px;
         color: var(--muted);
       }
 
-      .chipRow {
-        margin-top: 12px;
+      .chips {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
       }
 
       .chip {
-        border: 1px solid var(--border);
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 9px;
         border-radius: 999px;
-        padding: 5px 10px;
-        font-size: 12px;
-        color: var(--muted);
-        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid var(--line);
+        background: #faf5ee;
+        font-size: 10.5px;
+        color: var(--soft);
+      }
+
+      .main {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 16px;
+        margin-top: 14px;
+      }
+
+      .col {
+        display: grid;
+        gap: 14px;
+        align-content: start;
       }
 
       .section {
-        margin-top: 16px;
+        break-inside: avoid;
       }
 
-      .section h2 {
-        font-size: 13px;
-        letter-spacing: 0.08em;
+      .sectionTitle {
+        margin-bottom: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 10px;
+        color: var(--sage);
       }
 
-      .grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
+      .block {
+        padding: 10px 11px;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, #fffdfa 0%, #fbf6ef 100%);
       }
 
-      .item {
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 12px;
-        background: rgba(255, 255, 255, 0.72);
+      .entry + .entry {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #eadfd3;
       }
 
-      .itemHead {
+      .row {
         display: flex;
         justify-content: space-between;
         gap: 10px;
@@ -117,287 +154,276 @@
         flex-wrap: wrap;
       }
 
-      .itemTitle {
-        font-size: 15px;
-        font-weight: 680;
+      .entryTitle {
+        font-size: 12.6px;
+        font-weight: 700;
       }
 
-      .itemMeta {
-        font-size: 12px;
-        color: var(--faint);
+      .entryMeta {
+        font-size: 10.5px;
+        color: var(--soft);
       }
 
-      .itemDesc {
-        margin-top: 8px;
-        font-size: 13px;
+      .entryText {
+        margin-top: 5px;
+        font-size: 11.4px;
         color: var(--muted);
-      }
-
-      .projectGrid {
-        display: grid;
-        grid-template-columns: 1.4fr 0.9fr;
-        gap: 12px;
-        align-items: start;
-      }
-
-      .projectVisual {
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        overflow: hidden;
-        background: rgba(255, 255, 255, 0.8);
-      }
-
-      .projectVisual img {
-        width: 100%;
-        height: 140px;
-        object-fit: cover;
-        display: block;
-      }
-
-      .projectVisual figcaption {
-        font-size: 11px;
-        color: var(--faint);
-        padding: 6px 8px;
       }
 
       ul {
-        margin: 8px 0 0 18px;
-        padding: 0;
+        margin-top: 6px;
+        padding-left: 16px;
         color: var(--muted);
-        font-size: 13px;
+        font-size: 11.2px;
       }
 
-      .twoCol {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
+      li + li {
+        margin-top: 4px;
       }
 
-      .footerNote {
-        margin-top: 12px;
-        font-size: 12px;
-        color: var(--faint);
+      .stackList {
+        font-size: 11.4px;
+        color: var(--muted);
+      }
+
+      .note {
+        font-size: 10px;
+        color: var(--soft);
+      }
+
+      .printBar {
+        margin-top: 14px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .printButton {
+        border: 1px solid var(--line);
+        background: var(--blush);
+        color: var(--ink);
+        border-radius: 999px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 11px;
       }
 
       @media (max-width: 820px) {
-        .contact,
-        .twoCol,
-        .projectGrid {
+        .page {
+          width: calc(100vw - 20px);
+          padding: 18px;
+        }
+
+        .main,
+        .contact {
           grid-template-columns: 1fr;
         }
 
-        .page {
-          padding: 16px;
-        }
-
-        .name {
-          font-size: 28px;
+        .printBar {
+          justify-content: flex-start;
         }
       }
 
       @media print {
+        html,
         body {
           background: #fff;
         }
 
         .page {
           width: 100%;
-          max-width: none;
           margin: 0;
           padding: 0;
-        }
-
-        .card {
-          border: 1px solid #d8cab7;
+          border: 0;
           box-shadow: none;
-          break-inside: avoid;
         }
 
-        .item {
-          break-inside: avoid;
+        .printBar {
+          display: none;
         }
       }
     </style>
   </head>
   <body>
     <main class="page">
-      <section class="card">
-        <h1 class="name">Melissa Marcelo</h1>
-        <p class="role">Backend Developer building secure, production-ready APIs</p>
+      <header class="header">
+        <div>
+          <h1 class="name">Melissa Marcelo</h1>
+          <p class="role">Backend Developer</p>
+        </div>
 
         <div class="contact">
-          <div>Email: macyhood2527@gmail.com</div>
-          <div>GitHub: github.com/macyhood2527-oss</div>
-          <div>LinkedIn: linkedin.com/in/melissamarcelo</div>
-          <div>Focus: API Engineering, Auth, System Design</div>
+          <div>macyhood2527@gmail.com</div>
+          <div>github.com/macyhood2527-oss</div>
+          <div>linkedin.com/in/melissamarcelo</div>
+          <div>Focused on APIs, auth, and practical systems</div>
         </div>
 
         <p class="summary">
-          Full-stack builder with backend-first execution across Node.js, Express, Supabase, MySQL,
-          and PostgreSQL. I design and ship practical systems with authentication, role-based access,
-          secure data rules, and maintainable service logic.
+          Backend-focused developer building practical applications, secure APIs, authentication flows,
+          and database-backed tools. I work across full-stack product builds, but my strongest focus is
+          turning real workflows into clean, reliable systems people can actually use.
         </p>
 
-        <div class="chipRow">
-          <span class="chip">API Engineering</span>
-          <span class="chip">Node.js • Express • TypeScript</span>
-          <span class="chip">Supabase • MySQL • PostgreSQL</span>
-          <span class="chip">JWT • OAuth • RLS • RBAC</span>
-          <span class="chip">React • Next.js • React Native</span>
+        <div class="chips">
+          <span class="chip">Node.js</span>
+          <span class="chip">Express</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Next.js</span>
+          <span class="chip">React</span>
+          <span class="chip">Supabase</span>
+          <span class="chip">MySQL</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">Dexie</span>
+          <span class="chip">IndexedDB</span>
         </div>
+      </header>
+
+      <section class="printBar">
+        <button class="printButton" onclick="window.print()">Save / Print as PDF</button>
       </section>
 
-      <section class="section card">
-        <h2>Technical Stack</h2>
-        <p class="itemDesc">
-          Node.js, Express, TypeScript, REST API, MySQL, PostgreSQL, Supabase,
-          Supabase Auth, RLS, RBAC, JWT, OAuth, React, Next.js, React Native, Expo Router,
-          Tailwind CSS, Web Push, PWA.
-        </p>
-        <p class="footerNote">© 2026 Melissa Marcelo. Designed & built with intention. 🌿</p>
-      </section>
+      <section class="main">
+        <div class="col">
+          <section class="section">
+            <div class="sectionTitle">Selected Projects</div>
+            <div class="block">
+              <article class="entry">
+                <div class="row">
+                  <div class="entryTitle">Spendora</div>
+                  <div class="entryMeta">Next.js • Dexie • IndexedDB</div>
+                </div>
+                <p class="entryText">
+                  Offline-first expense tracking web app focused on spending awareness, installable PWA behavior, and browser-local data architecture.
+                </p>
+                <ul>
+                  <li>Built local-first storage using Dexie and IndexedDB so the app works offline</li>
+                  <li>Added dashboards, spending insights, merchant autocomplete, and printable monthly reports</li>
+                  <li>Designed a calm product experience focused on clarity rather than heavy budgeting friction</li>
+                </ul>
+              </article>
 
-      <section class="section card">
-        <h2>Selected Projects</h2>
-        <div class="grid">
-          <article class="item">
-            <div class="itemHead">
-              <div class="itemTitle">BrightSmile Dental Clinic Booking System</div>
-              <div class="itemMeta">Next.js • Supabase • PostgreSQL</div>
-            </div>
-            <div class="projectGrid">
-              <div>
-                <p class="itemDesc">
+              <article class="entry">
+                <div class="row">
+                  <div class="entryTitle">BrightSmile Dental Clinic Booking System</div>
+                  <div class="entryMeta">Next.js • Supabase • PostgreSQL</div>
+                </div>
+                <p class="entryText">
                   Full-stack booking platform with patient/admin role separation, schedule validation, and editable clinic content.
                 </p>
                 <ul>
-                  <li>Built appointment booking and patient history workflows</li>
-                  <li>Implemented role-protected admin tooling for services and schedules</li>
-                  <li>Prevented invalid bookings with unavailable-date and occupied-slot checks</li>
+                  <li>Built patient booking, appointment history, and role-protected admin workflows</li>
+                  <li>Prevented invalid bookings through unavailable-date and slot-conflict validation</li>
+                  <li>Used Supabase Auth, storage, and database rules to support a production-ready setup</li>
                 </ul>
-              </div>
-              <figure class="projectVisual">
-                <img src="/media/brightsmile/homepage.jpg" alt="BrightSmile homepage preview" />
-                <figcaption>Patient-facing homepage and booking entry</figcaption>
-              </figure>
-            </div>
-          </article>
+              </article>
 
-          <article class="item">
-            <div class="itemHead">
-              <div class="itemTitle">LifeOS</div>
-              <div class="itemMeta">React • Node.js • MySQL</div>
-            </div>
-            <div class="projectGrid">
-              <div>
-                <p class="itemDesc">
-                  Productivity journal web app for tasks, habits, reflections, and reminders with push support.
+              <article class="entry">
+                <div class="row">
+                  <div class="entryTitle">LifeOS</div>
+                  <div class="entryMeta">React • Node.js • MySQL</div>
+                </div>
+                <p class="entryText">
+                  Productivity journal app for tasks, habits, reflections, and reminders with Google login and web push notifications.
                 </p>
                 <ul>
-                  <li>Implemented full CRUD flows with persistence</li>
-                  <li>Integrated Google OAuth and session-based auth middleware</li>
-                  <li>Shipped reminder scheduling with quiet-hours logic</li>
+                  <li>Built CRUD flows for tasks, habits, and reflections with backend persistence</li>
+                  <li>Integrated Google OAuth, reminder scheduling, quiet hours, and browser push</li>
+                  <li>Shaped the product around gentle UX, practical routines, and maintainable service logic</li>
                 </ul>
-              </div>
-              <figure class="projectVisual">
-                <img src="/media/lifeos/today.jpg" alt="LifeOS today view preview" />
-                <figcaption>Daily flow with tasks, habits, and reflections</figcaption>
-              </figure>
-            </div>
-          </article>
+              </article>
 
-          <article class="item">
-            <div class="itemHead">
-              <div class="itemTitle">BillGuard</div>
-              <div class="itemMeta">React Native • Expo • Supabase</div>
-            </div>
-            <div class="projectGrid">
-              <div>
-                <p class="itemDesc">
-                  Shared household bill management app for recurring payments, history tracking, and exportable monthly reporting.
+              <article class="entry">
+                <div class="row">
+                  <div class="entryTitle">BillGuard</div>
+                  <div class="entryMeta">React Native • Expo • Supabase</div>
+                </div>
+                <p class="entryText">
+                  Shared household billing app for recurring payments, collaboration, and printable reporting.
                 </p>
                 <ul>
-                  <li>Expanded the app from single-user billing into multi-household collaboration with invites, member roles, ownership transfer, and household switching</li>
-                  <li>Built reliable billing flows with bills CRUD, paid/undo paid actions, payment history, and filters by month and payer</li>
-                  <li>Added printable monthly reports with payment snapshots to preserve historical accuracy even when bill details change later</li>
-                  <li>Polished product UX with profile controls, password change, 4-theme support, and smoother shared-screen transitions</li>
+                  <li>Expanded from single-user billing into household collaboration with invites and member roles</li>
+                  <li>Built bills CRUD, payment history, month filters, and snapshot-safe printable reports</li>
                 </ul>
-              </div>
-              <figure class="projectVisual">
-                <img src="/media/billguard/report.png" alt="BillGuard monthly payment report preview" />
-                <figcaption>Printable monthly payment report with household totals and member-level breakdown</figcaption>
-              </figure>
+              </article>
             </div>
-          </article>
+          </section>
 
-          <article class="item">
-            <div class="itemHead">
-              <div class="itemTitle">Inventory & POS System</div>
-              <div class="itemMeta">Node.js • Express • MySQL</div>
-            </div>
-            <div class="projectGrid">
-              <div>
-                <p class="itemDesc">
-                  Role-based inventory and checkout system with sales tracking and reporting.
+          <section class="section">
+            <div class="sectionTitle">Client Experience</div>
+            <div class="block">
+              <article class="entry">
+                <div class="row">
+                  <div class="entryTitle">Growth Consulting, Outreach, and Content Support</div>
+                  <div class="entryMeta">Agency + direct clients</div>
+                </div>
+                <p class="entryText">
+                  Supported coaches, creators, and online service businesses with content systems, warm outreach, lead generation, and engagement workflows.
                 </p>
                 <ul>
-                  <li>Designed MySQL schema for products, users, sales, stock movement</li>
-                  <li>Implemented JWT auth and RBAC routes</li>
-                  <li>Generated SQL-based reports for operations visibility</li>
+                  <li>Planned reels, carousels, and audience-facing content with stronger hooks and CTAs</li>
+                  <li>Handled outreach and follow-up systems aimed at qualified conversations instead of spam tactics</li>
+                  <li>Worked close to business operators, which strengthened my product and workflow awareness</li>
                 </ul>
-              </div>
-              <figure class="projectVisual">
-                <img src="/media/pos-store/reports-dashboard.jpg" alt="POS reports dashboard preview" />
-                <figcaption>Sales reporting and stock insights dashboard</figcaption>
-              </figure>
+              </article>
             </div>
-          </article>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="section">
+            <div class="sectionTitle">Technical Stack</div>
+            <div class="block stackList">
+              Node.js, Express, TypeScript, REST APIs, JWT Auth, OAuth, RBAC, Supabase, MySQL, PostgreSQL, Dexie,
+              IndexedDB, React, Next.js, Tailwind CSS, Framer Motion, Recharts, Lucide React, React Native, Expo Router,
+              Web Push, and PWA patterns.
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sectionTitle">Live Systems Experience</div>
+            <div class="block">
+              <article class="entry">
+                <div class="row">
+                  <div class="entryTitle">Mahilaya Apex + Mount Mahilaya</div>
+                  <div class="entryMeta">Live operations • Roblox Lua</div>
+                </div>
+                <p class="entryText">
+                  Built and maintained multiplayer systems with persistence, reward logic, server-side validation, and operational tooling.
+                </p>
+                <ul>
+                  <li>Implemented DataStore persistence and leaderboard logic</li>
+                  <li>Shipped rewards, entitlement checks, moderation tools, and state validation</li>
+                  <li>Worked in live environments where reliability and anti-exploit measures mattered</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sectionTitle">Strengths</div>
+            <div class="block">
+              <ul style="margin-top: 0">
+                <li>Backend API design and implementation</li>
+                <li>Authentication and role-based access control</li>
+                <li>Database-backed product workflows</li>
+                <li>Offline-first and browser-local data patterns</li>
+                <li>Practical, user-aware systems thinking</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sectionTitle">Availability</div>
+            <div class="block">
+              <p class="entryText" style="margin-top: 0">
+                Open to freelance projects, collaborative builds, and backend-focused roles where practical product thinking and clean implementation matter.
+              </p>
+            </div>
+          </section>
         </div>
       </section>
 
-      <section class="section card">
-        <h2>Client Experience</h2>
-        <article class="item">
-          <div class="itemHead">
-            <div class="itemTitle">Growth Consulting - Outreach, Lead Generation, Content</div>
-            <div class="itemMeta">~1 year • Agency + Direct clients</div>
-          </div>
-          <p class="itemDesc">
-            Helped coaches, creators, and online service providers increase visibility, nurture leads,
-            and book qualified calls using practical outreach and content systems.
-          </p>
-          <div class="twoCol">
-            <ul>
-              <li>Warm DM outreach and follow-up workflows</li>
-              <li>Profile audits and audience engagement strategy</li>
-            </ul>
-            <ul>
-              <li>Weekly reels/carousels/static content planning</li>
-              <li>Hook + CTA-focused content writing in Canva workflows</li>
-            </ul>
-          </div>
-        </article>
-      </section>
-
-      <section class="section card">
-        <h2>Live Systems Experience</h2>
-        <article class="item">
-          <div class="itemHead">
-            <div class="itemTitle">Mahilaya Apex + Mount Mahilaya (Roblox)</div>
-            <div class="itemMeta">Live Operations • Roblox Lua</div>
-          </div>
-          <p class="itemDesc">
-            Built and maintained multiplayer systems with server-authoritative validation,
-            persistence, reward/economy mechanics, and operational tooling.
-          </p>
-          <ul>
-            <li>Implemented DataStore persistence and OrderedDataStore leaderboards</li>
-            <li>Shipped reward systems, entitlement checks, and moderation tools</li>
-            <li>Improved anti-exploit reliability with strict server-side validation</li>
-          </ul>
-        </article>
-      </section>
-
+      <p class="note" style="margin-top: 12px;">Prepared to print cleanly to both A4 and US Letter using browser Save as PDF.</p>
     </main>
   </body>
 </html>

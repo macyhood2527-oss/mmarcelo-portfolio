@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import Container from '../components/layout/Container.jsx';
 import Button from '../components/ui/Button.jsx';
 import Chip from '../components/ui/Chip.jsx';
@@ -258,10 +260,10 @@ function CaseStudyBlock({ title, children }) {
   return (
     <div
       style={{
-        border: '1px solid var(--border)',
-        borderRadius: 14,
-        background: 'rgba(255,255,255,0.5)',
-        padding: 14,
+        border: '1px solid rgba(139, 107, 78, 0.18)',
+        borderRadius: 20,
+        background: 'rgba(255, 251, 247, 0.78)',
+        padding: 18,
       }}
     >
       <div
@@ -276,6 +278,153 @@ function CaseStudyBlock({ title, children }) {
         {title}
       </div>
       {children}
+    </div>
+  );
+}
+
+function ProjectCard({ project, isOpen, onToggle, index = 0 }) {
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!contentRef.current) return;
+    const nextHeight = contentRef.current.scrollHeight;
+    setContentHeight(nextHeight);
+  }, [isOpen, project]);
+
+  const p = project;
+
+  return (
+    <div
+      className="card"
+      style={{
+        padding: 'clamp(22px, 3vw, 30px)',
+        marginTop: 18,
+        borderRadius: 30,
+        transitionDelay: `${index * 40}ms`,
+      }}
+    >
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1fr) auto',
+          alignItems: 'start',
+          gap: 18,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 30, lineHeight: 1, fontWeight: 600 }}>{p.title}</div>
+            {p.emphasis && <Chip>{p.emphasis}</Chip>}
+          </div>
+
+          <p className="p" style={{ marginTop: 10, maxWidth: 820 }}>
+            {p.summary}
+          </p>
+
+          <div
+            style={{
+              marginTop: 14,
+              fontSize: 13,
+              color: 'var(--faint)',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Notes from the build
+          </div>
+
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 14 }}>
+            {(p.tags || []).map((t) => (
+              <Chip key={t}>{t}</Chip>
+            ))}
+          </div>
+        </div>
+
+        <Button variant="secondary" onClick={onToggle}>
+          {isOpen ? 'Hide details' : 'View case study'}
+        </Button>
+      </div>
+
+      <div
+        className={`detailsWrapper ${isOpen ? 'is-open' : ''}`}
+        style={{
+          maxHeight: isOpen ? `${contentHeight + 24}px` : '0px',
+          opacity: isOpen ? 1 : 0,
+        }}
+        aria-hidden={!isOpen}
+      >
+        <div ref={contentRef} className="detailsContent">
+          <div className="hr" />
+
+          <div className="caseStudyGrid" style={{ marginTop: 14, display: 'grid', gap: 12 }}>
+            <CaseStudyBlock title="Problem">
+              <p className="p" style={{ fontSize: 14 }}>
+                {p.summary}
+              </p>
+            </CaseStudyBlock>
+
+            <CaseStudyBlock title="Solution">
+              <p className="p" style={{ marginTop: 0, fontSize: 14 }}>
+                {p.details?.architecture}
+              </p>
+              {!!p.details?.responsibilities?.length && (
+                <ul style={{ color: 'var(--muted)', marginTop: 10, lineHeight: 1.65, paddingLeft: 18 }}>
+                  {p.details.responsibilities.slice(0, 4).map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              )}
+            </CaseStudyBlock>
+
+            <CaseStudyBlock title="Impact">
+              {!!p.details?.problemsSolved?.length ? (
+                <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.65, paddingLeft: 18 }}>
+                  {p.details.problemsSolved.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="p" style={{ fontSize: 14 }}>
+                  Core system outcomes documented in architecture and delivery notes.
+                </p>
+              )}
+            </CaseStudyBlock>
+          </div>
+
+          <div className="sectionLabel">Build artifacts</div>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 0 }}>
+            {p.links?.github ? (
+              <a href={p.links.github} target="_blank" rel="noreferrer">
+                <Button variant="primary">GitHub</Button>
+              </a>
+            ) : (
+              <Button variant="primary" disabled>
+                Code (private)
+              </Button>
+            )}
+
+            {p.links?.demo ? (
+              <a href={p.links.demo} target="_blank" rel="noreferrer">
+                <Button variant="secondary">Live / Build</Button>
+              </a>
+            ) : (
+              <Button variant="secondary" disabled>
+                Demo (later)
+              </Button>
+            )}
+          </div>
+
+          {p.media && p.media.length > 0 && (
+            <>
+              <div className="sectionLabel">System preview</div>
+              <MediaGallery items={p.media} />
+            </>
+          )}
+
+          {p.details?.mediaNote && <div style={{ marginTop: 12, color: 'var(--faint)', fontSize: 13 }}>{p.details.mediaNote}</div>}
+        </div>
+      </div>
     </div>
   );
 }
@@ -300,13 +449,17 @@ export default function SelectedWork({ projects = [], activeTech, onClearFilter 
       <Container>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 }}>
           <div>
-            <div className="kicker">Core engineering work</div>
+            <div className="kicker">Selected work</div>
 
             <h2 className="h2" style={{ marginTop: 6 }}>
-              Selected Work
+              Curated builds from my working studio
             </h2>
 
-            <div style={{ marginTop: 6, color: 'var(--faint)', fontSize: 14 }}>Showing {projects.length} project{projects.length !== 1 ? 's' : ''}</div>
+            <p className="p" style={{ marginTop: 12, maxWidth: 760 }}>
+              A mix of backend-heavy systems, product builds, and practical apps shaped around real workflows rather than abstract demos.
+            </p>
+
+            <div style={{ marginTop: 10, color: 'var(--faint)', fontSize: 14 }}>Showing {projects.length} project{projects.length !== 1 ? 's' : ''}</div>
 
             {activeTech && (
               <div style={{ marginTop: 8, color: 'var(--muted)', fontSize: 14 }}>
@@ -340,120 +493,13 @@ export default function SelectedWork({ projects = [], activeTech, onClearFilter 
             const isOpen = openId === p.id;
 
             return (
-              <div
+              <ProjectCard
                 key={p.id}
-                className="card fadeUp"
-                style={{
-                  padding: 28,
-                  marginTop: 14,
-                  animationDelay: `${idx * 60}ms`,
-                }}
-              >
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'minmax(0, 1fr) auto',
-                    alignItems: 'start',
-                    gap: 12,
-                  }}
-                >
-                  <div>
-                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-                      <div style={{ fontSize: 18, fontWeight: 700 }}>{p.title}</div>
-                      {p.emphasis && <Chip>{p.emphasis}</Chip>}
-                    </div>
-
-                    <p className="p" style={{ marginTop: 10, maxWidth: 820 }}>
-                      {p.summary}
-                    </p>
-
-                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 14 }}>
-                      {(p.tags || []).map((t) => (
-                        <Chip key={t}>{t}</Chip>
-                      ))}
-                    </div>
-                  </div>
-
-                  <Button variant="secondary" onClick={() => setOpenId(isOpen ? null : p.id)}>
-                    {isOpen ? 'Hide details' : 'View case study'}
-                  </Button>
-                </div>
-
-                {isOpen && (
-                  <div className="detailsWrapper">
-                    <div className="detailsContent">
-                      <div className="hr" />
-
-                      <div className="caseStudyGrid" style={{ marginTop: 14, display: 'grid', gap: 12 }}>
-                        <CaseStudyBlock title="Problem">
-                          <p className="p" style={{ fontSize: 14 }}>
-                            {p.summary}
-                          </p>
-                        </CaseStudyBlock>
-
-                        <CaseStudyBlock title="Solution">
-                          <p className="p" style={{ marginTop: 0, fontSize: 14 }}>
-                            {p.details?.architecture}
-                          </p>
-                          {!!p.details?.responsibilities?.length && (
-                            <ul style={{ color: 'var(--muted)', marginTop: 10, lineHeight: 1.65, paddingLeft: 18 }}>
-                              {p.details.responsibilities.slice(0, 4).map((x) => (
-                                <li key={x}>{x}</li>
-                              ))}
-                            </ul>
-                          )}
-                        </CaseStudyBlock>
-
-                        <CaseStudyBlock title="Impact">
-                          {!!p.details?.problemsSolved?.length ? (
-                            <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.65, paddingLeft: 18 }}>
-                              {p.details.problemsSolved.map((x) => (
-                                <li key={x}>{x}</li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <p className="p" style={{ fontSize: 14 }}>
-                              Core system outcomes documented in architecture and delivery notes.
-                            </p>
-                          )}
-                        </CaseStudyBlock>
-                      </div>
-
-                      <div className="sectionLabel">Build artifacts</div>
-                      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 0 }}>
-                        {p.links?.github ? (
-                          <a href={p.links.github} target="_blank" rel="noreferrer">
-                            <Button variant="primary">GitHub</Button>
-                          </a>
-                        ) : (
-                          <Button variant="primary" disabled>
-                            Code (private)
-                          </Button>
-                        )}
-
-                        {p.links?.demo ? (
-                          <a href={p.links.demo} target="_blank" rel="noreferrer">
-                            <Button variant="secondary">Live / Build</Button>
-                          </a>
-                        ) : (
-                          <Button variant="secondary" disabled>
-                            Demo (later)
-                          </Button>
-                        )}
-                      </div>
-
-                      {p.media && p.media.length > 0 && (
-                        <>
-                          <div className="sectionLabel">System preview</div>
-                          <MediaGallery items={p.media} />
-                        </>
-                      )}
-
-                      {p.details?.mediaNote && <div style={{ marginTop: 12, color: 'var(--faint)', fontSize: 13 }}>{p.details.mediaNote}</div>}
-                    </div>
-                  </div>
-                )}
-              </div>
+                project={p}
+                isOpen={isOpen}
+                onToggle={() => setOpenId(isOpen ? null : p.id)}
+                index={idx}
+              />
             );
           })
         )}
@@ -461,6 +507,12 @@ export default function SelectedWork({ projects = [], activeTech, onClearFilter 
         <style>{`
           #work .caseStudyGrid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+
+          #work .card > div,
+          #work .detailsContent {
+            position: relative;
+            z-index: 1;
           }
 
           @media (max-width: 980px) {

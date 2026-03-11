@@ -1,89 +1,72 @@
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Flower2 } from 'lucide-react';
 import Container from './Container.jsx';
 import Nav from './Nav.jsx';
 
-export default function Header({ activeTech, onClearTech }) {
-  const [compact, setCompact] = useState(false);
-
-  useEffect(() => {
-    function onResize() {
-      setCompact(window.innerWidth < 980);
-    }
-    onResize();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
+export default function Header() {
   return (
     <header
       style={{
         position: 'sticky',
         top: 0,
         zIndex: 20,
-        backdropFilter: 'blur(12px)',
-        background: 'rgba(255,255,255,0.72)', // ✅ light frosted
-        borderBottom: '1px solid var(--border)', // ✅ pastel brown via tokens
+        backdropFilter: 'blur(10px)',
+        background: 'rgba(247, 243, 237, 0.84)',
+        borderBottom: '1px solid rgba(139, 107, 78, 0.18)',
       }}
     >
       <Container>
         <div
           style={{
-            height: 64,
+            minHeight: 74,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: 12,
+            gap: 16,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
+          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
             <div
               style={{
-                width: 10,
-                height: 10,
+                width: 30,
+                height: 30,
                 borderRadius: 999,
-                background: 'var(--accent)',
-                boxShadow: '0 0 0 6px var(--accent-2)',
+                display: 'grid',
+                placeItems: 'center',
+                color: 'var(--accent-strong)',
+                background: 'linear-gradient(180deg, rgba(207, 224, 195, 0.95) 0%, rgba(239, 231, 220, 0.92) 100%)',
+                border: '1px solid rgba(111, 138, 110, 0.14)',
+                boxShadow: '0 0 0 8px rgba(207, 224, 195, 0.48)',
                 flex: '0 0 auto',
               }}
-            />
-            <span
-              style={{
-                fontWeight: 650,
-                letterSpacing: 0.2,
-                whiteSpace: 'nowrap',
-                color: 'var(--text)',
-                maxWidth: compact ? 130 : 220,
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
             >
-              {compact ? 'crafted in logic' : 'crafted in logic 🌷'}
-            </span>
+              <Flower2 size={15} strokeWidth={1.9} />
+            </div>
 
-            {!compact && activeTech && (
-              <button
-                onClick={onClearTech}
+            <div style={{ minWidth: 0 }}>
+              <div
                 style={{
-                  marginLeft: 6,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: '6px 10px',
-                  borderRadius: 999,
-                  border: '1px dashed var(--border)', // ✅ dashed pastel border
-                  background: 'rgba(47, 111, 87, 0.10)', // ✅ soft green tint
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 18,
+                  fontWeight: 600,
                   color: 'var(--text)',
-                  fontSize: 13,
-                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
                 }}
-                title="Clear active filter"
               >
-                <span style={{ opacity: 0.85 }}>Filter:</span>
-                <span style={{ fontWeight: 650 }}>{activeTech}</span>
-                <span style={{ opacity: 0.8 }}>×</span>
-              </button>
-            )}
-          </div>
+                Melissa Marcelo
+              </div>
+              <div
+                style={{
+                  fontSize: 12,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: 'var(--faint)',
+                }}
+              >
+                Developer portfolio
+              </div>
+            </div>
+          </Link>
 
           <Nav />
         </div>

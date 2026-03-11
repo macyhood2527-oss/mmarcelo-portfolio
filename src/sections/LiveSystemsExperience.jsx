@@ -1,9 +1,18 @@
+'use client';
+
 // src/sections/LiveSystemsExperience.jsx
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Container from '../components/layout/Container.jsx';
 import Button from '../components/ui/Button.jsx';
 import Chip from '../components/ui/Chip.jsx';
 import { liveSystems } from '../data/liveSystems.js';
+
+function resolveMediaSrc(src) {
+  if (!src) return '';
+  if (typeof src === 'string') return src;
+  if (typeof src === 'object' && 'src' in src) return src.src;
+  return String(src);
+}
 
 // Compact thumbnails + lightbox (images only)
 function MediaGallery({ items = [] }) {
@@ -60,7 +69,7 @@ function MediaGallery({ items = [] }) {
       >
         {images.map((m, i) => (
           <button
-            key={m.src}
+            key={`${resolveMediaSrc(m.src)}-${i}`}
             type="button"
             onClick={() => openAt(i)}
             style={{
@@ -80,7 +89,7 @@ function MediaGallery({ items = [] }) {
             {/* Smaller thumbnail */}
             <div style={{ position: 'relative', width: '100%', height: 0, paddingBottom: '60%' }}>
               <img
-                src={m.src}
+                src={resolveMediaSrc(m.src)}
                 alt={m.caption || `Preview ${i + 1}`}
                 loading="lazy"
                 style={{
@@ -175,7 +184,7 @@ function MediaGallery({ items = [] }) {
       {/* Image stage */}
       <div style={{ position: "relative", padding: 12 }}>
         <img
-          src={current.src}
+          src={resolveMediaSrc(current.src)}
           alt={current.caption || "Preview"}
           style={{
             width: "100%",
@@ -272,10 +281,10 @@ function CaseStudyBlock({ title, children }) {
   return (
     <div
       style={{
-        border: '1px solid var(--border)',
-        borderRadius: 14,
-        background: 'rgba(255,255,255,0.5)',
-        padding: 14,
+        border: '1px solid rgba(139, 107, 78, 0.18)',
+        borderRadius: 20,
+        background: 'rgba(255, 251, 247, 0.8)',
+        padding: 18,
       }}
     >
       <div
@@ -294,6 +303,112 @@ function CaseStudyBlock({ title, children }) {
   );
 }
 
+function LiveSystemCard({ system, isOpen, onToggle, index = 0 }) {
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!contentRef.current) return;
+    setContentHeight(contentRef.current.scrollHeight);
+  }, [isOpen, system]);
+
+  const s = system;
+
+  return (
+    <div
+      className="card fadeUp"
+      style={{ padding: 28, marginTop: 14, animationDelay: `${index * 60}ms` }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
+        <div>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ fontSize: 18, fontWeight: 700 }}>{s.title}</div>
+            {s.emphasis && <Chip>{s.emphasis}</Chip>}
+          </div>
+
+          <p className="p" style={{ marginTop: 10, maxWidth: 820 }}>
+            {s.summary}
+          </p>
+
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 14 }}>
+            {(s.tags || []).map((t) => (
+              <Chip key={t}>{t}</Chip>
+            ))}
+          </div>
+        </div>
+
+        <Button variant="secondary" onClick={onToggle}>
+          {isOpen ? 'Hide details' : 'View details'}
+        </Button>
+      </div>
+
+      <div
+        className={`detailsWrapper ${isOpen ? 'is-open' : ''}`}
+        style={{
+          maxHeight: isOpen ? `${contentHeight + 24}px` : '0px',
+          opacity: isOpen ? 1 : 0,
+        }}
+        aria-hidden={!isOpen}
+      >
+        <div ref={contentRef} className="detailsContent">
+          <div className="hr" />
+
+          <div className="liveCaseGrid" style={{ marginTop: 14, display: 'grid', gap: 12 }}>
+            <CaseStudyBlock title="Problem">
+              <p className="p" style={{ fontSize: 14 }}>
+                {s.summary}
+              </p>
+            </CaseStudyBlock>
+
+            <CaseStudyBlock title="Solution">
+              <p className="p" style={{ marginTop: 0, fontSize: 14 }}>
+                {s.details?.architecture}
+              </p>
+              {!!s.details?.responsibilities?.length && (
+                <ul style={{ color: 'var(--muted)', marginTop: 10, lineHeight: 1.65, paddingLeft: 18 }}>
+                  {s.details.responsibilities.slice(0, 4).map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              )}
+            </CaseStudyBlock>
+
+            <CaseStudyBlock title="Impact">
+              {!!s.details?.problemsSolved?.length ? (
+                <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.65, paddingLeft: 18 }}>
+                  {s.details.problemsSolved.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="p" style={{ fontSize: 14 }}>
+                  Outcomes documented across live operations and stability updates.
+                </p>
+              )}
+            </CaseStudyBlock>
+          </div>
+
+          <div className="sectionLabel">Build artifacts</div>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 0 }}>
+            {s.links?.game ? (
+              <a href={s.links.game} target="_blank" rel="noreferrer">
+                <Button variant="primary">Game</Button>
+              </a>
+            ) : (
+              <Button variant="secondary" disabled>
+                Game link (add)
+              </Button>
+            )}
+          </div>
+
+          <div className="sectionLabel">System preview</div>
+          <MediaGallery items={s.media} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function LiveSystemsExperience() {
   const [openId, setOpenId] = useState(liveSystems?.[0]?.id ?? null);
 
@@ -304,15 +419,14 @@ export default function LiveSystemsExperience() {
   return (
     <section id="systems" className="section">
       <Container>
-        <div className="kicker">Real-time & interactive systems</div>
+        <div className="kicker">Live systems experience</div>
         <h2 className="h2" style={{ marginTop: 6 }}>
-          Live Systems Experience
+          Real-world systems, shipped in live environments
         </h2>
 
         <div className="card" style={{ padding: 22, marginTop: 14 }}>
           <p className="p" style={{ maxWidth: 920 }}>
-            Multiplayer systems framed as engineering: data persistence, live debugging, economy logic,
-            performance considerations, and compliance integration.
+            Practical engineering work across multiplayer and live systems, focused on persistence, debugging, economy logic, deployment realities, and day-to-day operational reliability.
           </p>
         </div>
 
@@ -320,108 +434,27 @@ export default function LiveSystemsExperience() {
           const isOpen = openId === s.id;
 
           return (
-            <div
+            <LiveSystemCard
               key={s.id}
-              className="card fadeUp"
-              style={{ padding: 28, marginTop: 14, animationDelay: `${idx * 60}ms` }}
-            >
-              {/* Top row */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-                <div>
-                  <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-                    <div style={{ fontSize: 18, fontWeight: 700 }}>{s.title}</div>
-                    {s.emphasis && <Chip>{s.emphasis}</Chip>}
-                  </div>
-
-                  <p className="p" style={{ marginTop: 10, maxWidth: 820 }}>
-                    {s.summary}
-                  </p>
-
-                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 14 }}>
-                    {(s.tags || []).map((t) => (
-                      <Chip key={t}>{t}</Chip>
-                    ))}
-                  </div>
-                </div>
-
-                <Button variant="secondary" onClick={() => setOpenId(isOpen ? null : s.id)}>
-                  {isOpen ? 'Hide details' : 'View case study'}
-                </Button>
-              </div>
-
-              {/* Expandable details */}
-             {isOpen && (
-  <div className="detailsWrapper">
-    <div className="detailsContent">
-      <div className="hr" />
-
-      <div className="liveCaseGrid" style={{ marginTop: 14, display: 'grid', gap: 12 }}>
-        <CaseStudyBlock title="Problem">
-          <p className="p" style={{ fontSize: 14 }}>
-            {s.summary}
-          </p>
-        </CaseStudyBlock>
-
-        <CaseStudyBlock title="Solution">
-          <p className="p" style={{ marginTop: 0, fontSize: 14 }}>
-            {s.details?.architecture}
-          </p>
-          {!!s.details?.responsibilities?.length && (
-            <ul style={{ color: 'var(--muted)', marginTop: 10, lineHeight: 1.65, paddingLeft: 18 }}>
-              {s.details.responsibilities.slice(0, 4).map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </ul>
-          )}
-        </CaseStudyBlock>
-
-        <CaseStudyBlock title="Impact">
-          {!!s.details?.problemsSolved?.length ? (
-            <ul style={{ color: 'var(--muted)', marginTop: 0, lineHeight: 1.65, paddingLeft: 18 }}>
-              {s.details.problemsSolved.map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </ul>
-          ) : (
-            <p className="p" style={{ fontSize: 14 }}>
-              Outcomes documented across live operations and stability updates.
-            </p>
-          )}
-        </CaseStudyBlock>
-      </div>
-
-      <div className="sectionLabel">Build artifacts</div>
-      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 0 }}>
-        {s.links?.game ? (
-          <a href={s.links.game} target="_blank" rel="noreferrer">
-            <Button variant="primary">Game</Button>
-          </a>
-        ) : (
-          <Button variant="secondary" disabled>
-            Game link (add)
-          </Button>
-        )}
-      </div>
-
-      <div className="sectionLabel">System preview</div>
-      <MediaGallery items={s.media} />
-      <style>{`
-        #systems .liveCaseGrid {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        @media (max-width: 980px) {
-          #systems .liveCaseGrid {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
-      </div>
-    </div>
-)}
-            </div>
+              system={s}
+              isOpen={isOpen}
+              onToggle={() => setOpenId(isOpen ? null : s.id)}
+              index={idx}
+            />
           );
         })}
+
+        <style>{`
+          #systems .liveCaseGrid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+
+          @media (max-width: 980px) {
+            #systems .liveCaseGrid {
+              grid-template-columns: 1fr;
+            }
+          }
+        `}</style>
       </Container>
     </section>
   );
