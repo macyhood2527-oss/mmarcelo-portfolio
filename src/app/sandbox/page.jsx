@@ -3,6 +3,7 @@ import PageIntro from '../../components/layout/PageIntro.jsx';
 import Container from '../../components/layout/Container.jsx';
 import Chip from '../../components/ui/Chip.jsx';
 import Sandbox from '../../sections/Sandbox.jsx';
+import BugSquash from '../../sections/BugSquash.jsx';
 
 export default function SandboxPage() {
   return (
@@ -34,6 +35,7 @@ export default function SandboxPage() {
       </section>
 
       <Sandbox />
+      <BugSquash />
     </>
   );
 }

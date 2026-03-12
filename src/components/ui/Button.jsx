@@ -35,6 +35,13 @@ export default function Button({
           color: '#fffdf9',
           boxShadow: '0 14px 26px rgba(111, 138, 110, 0.24)',
         }
+      : variant === 'lavender'
+      ? {
+          background: 'linear-gradient(180deg, rgba(201, 195, 230, 0.96) 0%, rgba(177, 168, 214, 0.98) 100%)',
+          borderColor: 'rgba(160, 148, 201, 0.5)',
+          color: '#fffdf9',
+          boxShadow: '0 14px 24px rgba(169, 154, 204, 0.22)',
+        }
       : {
           background: 'rgba(255, 250, 244, 0.82)',
           color: 'var(--text)',
@@ -60,7 +67,13 @@ export default function Button({
           e.currentTarget.style.transform = 'translateY(-2px)';
           e.currentTarget.style.boxShadow = '0 18px 28px rgba(111, 138, 110, 0.28)';
         }
-        if (variant !== 'primary') {
+        if (variant === 'lavender') {
+          e.currentTarget.style.transform = 'translateY(-2px)';
+          e.currentTarget.style.borderColor = 'rgba(160, 148, 201, 0.65)';
+          e.currentTarget.style.background = 'linear-gradient(180deg, rgba(208, 202, 235, 1) 0%, rgba(185, 176, 220, 1) 100%)';
+          e.currentTarget.style.boxShadow = '0 18px 28px rgba(169, 154, 204, 0.28)';
+        }
+        if (variant !== 'primary' && variant !== 'lavender') {
           e.currentTarget.style.transform = 'translateY(-2px)';
           e.currentTarget.style.borderColor = 'rgba(111, 138, 110, 0.36)';
           e.currentTarget.style.background = 'rgba(255, 252, 247, 0.98)';
@@ -71,7 +84,12 @@ export default function Button({
         if (variant === 'primary') {
           e.currentTarget.style.boxShadow = '0 14px 26px rgba(111, 138, 110, 0.24)';
         }
-        if (variant !== 'primary') {
+        if (variant === 'lavender') {
+          e.currentTarget.style.borderColor = 'rgba(160, 148, 201, 0.5)';
+          e.currentTarget.style.background = 'linear-gradient(180deg, rgba(201, 195, 230, 0.96) 0%, rgba(177, 168, 214, 0.98) 100%)';
+          e.currentTarget.style.boxShadow = '0 14px 24px rgba(169, 154, 204, 0.22)';
+        }
+        if (variant !== 'primary' && variant !== 'lavender') {
           e.currentTarget.style.borderColor = 'rgba(139, 107, 78, 0.24)';
           e.currentTarget.style.background = 'rgba(255, 250, 244, 0.82)';
         }
