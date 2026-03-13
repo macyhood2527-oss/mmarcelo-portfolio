@@ -1,5 +1,90 @@
 export const projects = [
   {
+    id: 'pharmadesk-touchbase',
+    title: 'PharmaDesk TouchBase',
+    emphasis: 'Primary',
+    summary:
+      'LAN-ready pharmacy POS and inventory system with sales, returns, receiving, audit tracking, reporting, and simplified main-PC deployment for real local pharmacy operations.',
+    tags: [
+      'React',
+      'Vite',
+      'Tailwind CSS',
+      'Node.js',
+      'Express',
+      'SQLite',
+      'POS',
+      'Inventory',
+      'LAN Deployment',
+      'Offline-Friendly',
+    ],
+    links: {
+      github: 'https://github.com/macyhood2527-oss/pharmadesk',
+      demo: null,
+    },
+    details: {
+      architecture:
+        'React + Vite + Tailwind frontend connected to a Node.js + Express backend with SQLite, designed for a local-network pharmacy setup where one main PC hosts the system and browser clients on the same LAN access it.',
+      responsibilities: [
+        'Stabilized the app shell by fixing frontend startup issues, protected-route nesting, routing gaps, and layout behavior across pages',
+        'Built core pharmacy workflows including POS selling, FIFO stock deduction, expired batch blocking, stock adjustments, receiving, and printable receipts',
+        'Implemented admin-facing operations such as role-based access, sales voiding, partial returns, supplier and user management, and stock audit/history tracking',
+        'Delivered operational reporting with dashboard metrics, gross/net sales, returns, voids, top products, low-stock visibility, and historical product snapshotting',
+        'Improved real-world deployment with manual DB setup scripts, backup/restore safeguards, launcher-style startup flows, and LAN documentation for main-PC use',
+      ],
+      problemsSolved: [
+        'Made the system usable for day-to-day pharmacy work by closing routing, auth, and UI stability gaps that previously blocked normal operation',
+        'Protected inventory accuracy with FIFO deduction, expired-batch sale blocking, duplicate batch safeguards, and stock restoration on returns',
+        'Kept financial reporting more reliable by excluding voided sales from active totals and preserving historical prices and product-name snapshots',
+        'Reduced deployment friction for small pharmacy environments with one-click setup/start scripts, browser auto-open, and offline-capable same-LAN usage after install',
+      ],
+      mediaNote:
+        'Current status: usable pharmacy POS and inventory system with admin operations, receiving, returns, reports, stock audit tracking, automated backups, and practical local-network deployment for a main pharmacy PC.',
+    },
+    media: [
+      {
+        type: 'image',
+        src: '/media/pharmadesk/dashboard.png',
+        caption: 'Admin dashboard with live net sales, gross profit, transaction counts, low-stock alerts, and weekly top-product visibility.',
+      },
+      {
+        type: 'image',
+        src: '/media/pharmadesk/pos.png',
+        caption: 'Point-of-sale screen with searchable medicine cards, FIFO-aware batch selling, and a cashier cart built for fast checkout.',
+      },
+      {
+        type: 'image',
+        src: '/media/pharmadesk/receiving.png',
+        caption: 'Receiving workflow for supplier deliveries, reference tracking, notes, batch details, and quantity-based stock intake.',
+      },
+      {
+        type: 'image',
+        src: '/media/pharmadesk/products.png',
+        caption: 'Products master list showing medicine details, supplier cost, retail price, markup, stock counts, and quick admin actions.',
+      },
+      {
+        type: 'image',
+        src: '/media/pharmadesk/batches.png',
+        caption: 'Batch inventory view for monitoring supplier-linked stock lots, expiry dates, quantities, and manual adjustment entry points.',
+      },
+      {
+        type: 'image',
+        src: '/media/pharmadesk/stockhistory.png',
+        caption: 'Stock movement audit trail covering stock-in, sales deductions, returns, void-related effects, and adjustment history.',
+      },
+      {
+        type: 'image',
+        src: '/media/pharmadesk/sales.png',
+        caption: 'Sales history table with receipt tracking, cashier visibility, status handling, return amounts, net sales, and profit per sale.',
+      },
+      {
+        type: 'image',
+        src: '/media/pharmadesk/reports.png',
+        caption: 'Reports page summarizing gross sales, net sales, returns, voids, profit, top products, and low-stock watch items for the selected period.',
+      },
+    ],
+  },
+
+  {
     id: 'inventory-pos',
     title: 'Inventory & POS System',
     emphasis: 'Primary',
