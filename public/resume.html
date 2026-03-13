@@ -238,10 +238,20 @@
 
         .page {
           width: 100%;
+          max-width: none;
           margin: 0;
           padding: 0;
           border: 0;
           box-shadow: none;
+        }
+
+        .contact {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        .main {
+          grid-template-columns: 1.15fr 0.85fr !important;
+          gap: 16px;
         }
 
         .printBar {
@@ -301,12 +311,12 @@
                   <div class="entryMeta">React • Node.js • SQLite</div>
                 </div>
                 <p class="entryText">
-                  Pharmacy POS and inventory system built for real day-to-day operations, including selling, receiving, returns, reporting, and local-network setup.
+                  Pharmacy POS and inventory system for daily sales, stock, and reporting.
                 </p>
                 <ul>
-                  <li>Built core pharmacy workflows like POS selling, stock receiving, returns, and printable receipts</li>
-                  <li>Added batch tracking, expiry checks, stock history, and reporting to help keep inventory reliable</li>
-                  <li>Improved local deployment for small pharmacy setups with practical main-PC and LAN use in mind</li>
+                  <li>Built POS, receiving, returns, and receipt printing</li>
+                  <li>Added batch tracking, expiry checks, and stock history</li>
+                  <li>Improved main-PC and LAN deployment for small pharmacies</li>
                 </ul>
               </article>
 
@@ -316,12 +326,12 @@
                   <div class="entryMeta">Next.js • Dexie • IndexedDB</div>
                 </div>
                 <p class="entryText">
-                  Offline-first expense tracking web app focused on spending awareness, installable PWA behavior, and browser-local data architecture.
+                  Offline-first expense tracker with PWA support and local data storage.
                 </p>
                 <ul>
-                  <li>Built local-first storage using Dexie and IndexedDB so the app works offline</li>
-                  <li>Added dashboards, spending insights, merchant autocomplete, and printable monthly reports</li>
-                  <li>Designed a calm product experience focused on clarity rather than heavy budgeting friction</li>
+                  <li>Built offline storage with Dexie and IndexedDB</li>
+                  <li>Added dashboards, insights, autocomplete, and PDF reports</li>
+                  <li>Designed for clarity over heavy budgeting friction</li>
                 </ul>
               </article>
 
@@ -331,12 +341,12 @@
                   <div class="entryMeta">Next.js • Supabase • PostgreSQL</div>
                 </div>
                 <p class="entryText">
-                  Full-stack booking platform with patient/admin role separation, schedule validation, and editable clinic content.
+                  Booking platform with patient/admin roles and schedule validation.
                 </p>
                 <ul>
-                  <li>Built patient booking, appointment history, and role-protected admin workflows</li>
-                  <li>Prevented invalid bookings through unavailable-date and slot-conflict validation</li>
-                  <li>Used Supabase Auth, storage, and database rules to support a production-ready setup</li>
+                  <li>Built booking, appointment history, and admin workflows</li>
+                  <li>Blocked invalid dates and slot conflicts</li>
+                  <li>Used Supabase Auth, storage, and database rules</li>
                 </ul>
               </article>
 
@@ -346,12 +356,12 @@
                   <div class="entryMeta">React • Node.js • MySQL</div>
                 </div>
                 <p class="entryText">
-                  Productivity journal app for tasks, habits, reflections, and reminders with Google login and web push notifications.
+                  Productivity app for tasks, habits, reflections, and reminders.
                 </p>
                 <ul>
-                  <li>Built CRUD flows for tasks, habits, and reflections with backend persistence</li>
-                  <li>Integrated Google OAuth, reminder scheduling, quiet hours, and browser push</li>
-                  <li>Shaped the product around gentle UX, practical routines, and maintainable service logic</li>
+                  <li>Built CRUD flows with backend persistence</li>
+                  <li>Added Google OAuth, reminders, quiet hours, and push</li>
+                  <li>Focused on gentle UX and maintainable service logic</li>
                 </ul>
               </article>
 
@@ -361,11 +371,11 @@
                   <div class="entryMeta">React Native • Expo • Supabase</div>
                 </div>
                 <p class="entryText">
-                  Shared household billing app for recurring payments, collaboration, and printable reporting.
+                  Shared household billing app for recurring payments and reporting.
                 </p>
                 <ul>
-                  <li>Expanded from single-user billing into household collaboration with invites and member roles</li>
-                  <li>Built bills CRUD, payment history, month filters, and snapshot-safe printable reports</li>
+                  <li>Expanded billing into shared households with invites and roles</li>
+                  <li>Built bills CRUD, payment history, filters, and reports</li>
                 </ul>
               </article>
             </div>
